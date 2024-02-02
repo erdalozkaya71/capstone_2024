@@ -1,9 +1,9 @@
 const fs = require("fs");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-//const Staff = require('../../models/staffModel');
+const Staff = require("../../models/staffModel");
 const User = require("../../models/userModel");
-//const Inventory = require('../../models/inventoryModel');
+const Inventory = require("../../models/inventoryModel");
 
 dotenv.config({ path: "./config.env" });
 
@@ -18,16 +18,18 @@ mongoose
   .catch((err) => console.error(`DB connection error: ${err.message}`));
 
 //READ JSON FILE
-//const staff = JSON.parse(fs.readFileSync(`${__dirname}/staff.json`, 'utf-8'));
+const staffs = JSON.parse(fs.readFileSync(`${__dirname}/staffs.json`, "utf-8"));
 const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, "utf-8"));
-//const inventories = JSON.parse(fs.readFileSync(`${__dirname}/inventories.json`, 'utf-8'));
+const inventories = JSON.parse(
+  fs.readFileSync(`${__dirname}/inventories.json`, "utf-8")
+);
 
 //IMPORT DATA INTO DB
 const importData = async () => {
   try {
-    //await Tour.create(tours);
+    await Staff.create(staffs);
     await User.create(users, { validateBeforeSave: false });
-    //await Review.create(reviews);
+    await Inventory.create(inventories);
     console.log("Data successfully loaded!");
   } catch (err) {
     console.log(err);
@@ -38,9 +40,9 @@ const importData = async () => {
 //DELETE ALL DATA FROM DB
 const deleteData = async () => {
   try {
-    //await Tour.deleteMany();
+    await Staff.deleteMany();
     await User.deleteMany();
-    //await Review.deleteMany();
+    await Inventory.deleteMany();
     console.log("Data successfully deleted!");
   } catch (err) {
     console.log(err);

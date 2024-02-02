@@ -1,0 +1,232 @@
+[
+  {
+    "product": "Stethoscope",
+    "productFeatures": "Dual-head, Lightweight design",
+    "keyFeatures": "High acoustic sensitivity",
+    "description": "Professional-grade stethoscope with a dual-head design for versatile use.",
+    "price": 75,
+    "availability": true,
+    "purchaseDate": "2024-01-10",
+    "image": "stethoscope.jpg",
+    "supplierDetails": {
+      "suppliers": "MedEquip Inc.",
+      "contactPerson": "Alice Johnson",
+      "phone": "123-456-7890",
+      "email": "alice@medequip.com",
+      "address": {
+        "street": "123 Health Ave",
+        "city": "Cambridge",
+        "province": "",
+        "country": "England",
+        "zipCode": "12345"
+      }
+    }
+  },
+  {
+    "product": "Digital Thermometer",
+    "productFeatures": "Fast reading, Memory function",
+    "keyFeatures": "Accurate, Easy to read display",
+    "description": "Digital thermometer suitable for oral, underarm, or rectal use.",
+    "price": 20,
+    "availability": true,
+    "purchaseDate": "2024-01-15",
+    "image": "thermometer.jpg",
+    "supplierDetails": {
+      "suppliers": "HealthTools Ltd.",
+      "contactPerson": "Bob Smith",
+      "phone": "234-567-8901",
+      "email": "bob@healthtools.com",
+      "address": {
+        "street": "456 Wellness St",
+        "city": "Kitchener",
+        "province": "Ontario",
+        "country": "Canada",
+        "zipCode": "23456"
+      }
+    }
+  },
+  {
+    "product": "Blood Pressure Monitor",
+    "productFeatures": "Automatic inflation, Large display",
+    "keyFeatures": "Portable, Accurate readings",
+    "description": "Easy-to-use blood pressure monitor for accurate readings at home.",
+    "price": 85,
+    "availability": true,
+    "purchaseDate": "2024-01-20",
+    "image": "bp-monitor.jpg",
+    "supplierDetails": {
+      "suppliers": "CardioCare Supplies",
+      "contactPerson": "Charles Xavier",
+      "phone": "345-678-9012",
+      "email": "charles@cardiocare.com",
+      "address": {
+        "street": "789 Heartbeat Blvd",
+        "city": "Roma",
+        "province": "",
+        "country": "Italy",
+        "zipCode": "34567"
+      }
+    }
+  },
+  {
+    "product": "Surgical Gloves",
+    "productFeatures": "Latex-free, Powder-free",
+    "keyFeatures": "Sterile, High tactile sensitivity",
+    "description": "Disposable surgical gloves suitable for sensitive procedures.",
+    "price": 15,
+    "availability": true,
+    "purchaseDate": "2024-01-25",
+    "image": "surgical-gloves.jpg",
+    "supplierDetails": {
+      "suppliers": "SafeHands Inc.",
+      "contactPerson": "Diana Prince",
+      "phone": "456-789-0123",
+      "email": "diana@safehands.com",
+      "address": {
+        "street": "101 Protective Way",
+        "city": "London",
+        "province": "Ontario",
+        "country": "Canada",
+        "zipCode": "45678"
+      }
+    }
+  },
+  {
+    "product": "Otoscope",
+    "productFeatures": "LED light, Wide-angle viewing lens",
+    "keyFeatures": "Durable, Clear imaging",
+    "description": "High-quality otoscope for ear examinations.",
+    "price": 120,
+    "availability": true,
+    "purchaseDate": "2024-02-01",
+    "image": "otoscope.jpg",
+    "supplierDetails": {
+      "suppliers": "EarHealth Co.",
+      "contactPerson": "Erik Lehnsherr",
+      "phone": "567-890-1234",
+      "email": "erik@earhealth.com",
+      "address": {
+        "street": "202 Auditory Ave",
+        "city": "Dallas",
+        "province": "Texas",
+        "country": "USA",
+        "zipCode": "56789"
+      }
+    }
+  },
+  {
+    "product": "Disposable Syringes",
+    "productFeatures": "Sterile, Single-use",
+    "keyFeatures": "Safe, Precision markings",
+    "description": "Sterile disposable syringes for various medical applications.",
+    "price": 10,
+    "availability": true,
+    "purchaseDate": "2024-02-05",
+    "image": "syringes.jpg",
+    "supplierDetails": {
+      "suppliers": "InjectSafe Ltd.",
+      "contactPerson": "Fiona Gallagher",
+      "phone": "678-901-2345",
+      "email": "fiona@injectsafe.com",
+      "address": {
+        "street": "303 Injection Lane",
+        "city": "Toronto",
+        "province": "Ontario",
+        "country": "Canada",
+        "zipCode": "67890"
+      }
+    }
+  },
+  {
+    "product": "Surgical Scalpel",
+    "productFeatures": "Stainless steel, disposable",
+    "keyFeatures": "Sharp, precise cutting",
+    "description": "Sterile surgical scalpel suitable for a variety of medical procedures.",
+    "price": 2.5,
+    "availability": true,
+    "purchaseDate": "2024-01-10",
+    "image": "scalpel_image_url",
+    "supplierDetails": {
+      "suppliers": "SharpEdge Co.",
+      "contactPerson": "Bob Smith",
+      "phone": "321-654-0987",
+      "email": "bob@sharpedge.com",
+      "address": {
+        "street": "456 Cutters Rd",
+        "city": "Waterloo",
+        "province": "Ontario",
+        "zipCode": "54321",
+        "country": "Canada"
+      }
+    }
+  },
+  {
+    "product": "Orthopedic Cast",
+    "productFeatures": "Lightweight, breathable",
+    "keyFeatures": "Water-resistant, durable",
+    "description": "Comfortable and sturdy orthopedic cast for bone healing.",
+    "price": 40.0,
+    "availability": true,
+    "purchaseDate": "2024-01-22",
+    "image": "cast_image_url",
+    "supplierDetails": {
+      "suppliers": "BoneSupport Ltd.",
+      "contactPerson": "Evelyn Carter",
+      "phone": "654-321-9870",
+      "email": "evelyn@bonesupport.com",
+      "address": {
+        "street": "202 Limb Lane",
+        "city": "Toronto",
+        "province": "Ontario",
+        "zipCode": "65432",
+        "country": "Canada"
+      }
+    }
+  },
+  {
+    "product": "X-ray Machine",
+    "productFeatures": "High-resolution imaging",
+    "keyFeatures": "Compact, low radiation",
+    "description": "Advanced X-ray machine providing clear and safe imaging.",
+    "price": 10000.0,
+    "availability": true,
+    "purchaseDate": "2024-01-05",
+    "image": "xraymachine_image_url",
+    "supplierDetails": {
+      "suppliers": "ImagingTech",
+      "contactPerson": "George Kay",
+      "phone": "987-654-3210",
+      "email": "george@imagingtech.com",
+      "address": {
+        "street": "303 Rays Rd",
+        "city": "Quebec city",
+        "province": "Quebec",
+        "zipCode": "98765",
+        "country": "Canada"
+      }
+    }
+  },
+  {
+    "product": "Defibrillator",
+    "productFeatures": "Portable, easy-to-use",
+    "keyFeatures": "Automatic rhythm detection",
+    "description": "Life-saving equipment for emergency cardiac situations.",
+    "price": 1500.0,
+    "availability": true,
+    "purchaseDate": "2024-01-12",
+    "image": "defibrillator_image_url",
+    "supplierDetails": {
+      "suppliers": "HeartGuardian",
+      "contactPerson": "Isaac Newton",
+      "phone": "321-987-6543",
+      "email": "isaac@heartguardian.com",
+      "address": {
+        "street": "606 Pulse Path",
+        "city": "Vancouver",
+        "province": "British Columbia",
+        "zipCode": "32198",
+        "country": "Canada"
+      }
+    }
+  }
+]
