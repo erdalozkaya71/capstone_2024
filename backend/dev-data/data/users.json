@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Alice Johnson",
+    "email": "alice.johnson@example.com",
+    "role": "admin",
+    "password": "AlicePass123",
+    "passwordConfirm": "AlicePass123"
+  },
+  {
+    "name": "Bob Smith",
+    "email": "bob.smith@example.com",
+    "role": "secretary",
+    "password": "BobPass123",
+    "passwordConfirm": "BobPass123"
+  },
+  {
+    "name": "Carol White",
+    "email": "carol.white@example.com",
+    "role": "admin",
+    "password": "CarolPass123",
+    "passwordConfirm": "CarolPass123"
+  },
+  {
+    "name": "David Brown",
+    "email": "david.brown@example.com",
+    "role": "secretary",
+    "password": "DavidPass123",
+    "passwordConfirm": "DavidPass123"
+  },
+  {
+    "name": "Eve Davis",
+    "email": "eve.davis@example.com",
+    "role": "admin",
+    "password": "EvePass123",
+    "passwordConfirm": "EvePass123"
+  },
+  {
+    "name": "Frank Miller",
+    "email": "frank.miller@example.com",
+    "role": "secretary",
+    "password": "FrankPass123",
+    "passwordConfirm": "FrankPass123"
+  },
+  {
+    "name": "Grace Wilson",
+    "email": "grace.wilson@example.com",
+    "role": "admin",
+    "password": "GracePass123",
+    "passwordConfirm": "GracePass123"
+  },
+  {
+    "name": "Henry Moore",
+    "email": "henry.moore@example.com",
+    "role": "secretary",
+    "password": "HenryPass123",
+    "passwordConfirm": "HenryPass123"
+  },
+  {
+    "name": "Isla Taylor",
+    "email": "isla.taylor@example.com",
+    "role": "admin",
+    "password": "IslaPass123",
+    "passwordConfirm": "IslaPass123"
+  },
+  {
+    "name": "Jack Anderson",
+    "email": "jack.anderson@example.com",
+    "role": "secretary",
+    "password": "JackPass123",
+    "passwordConfirm": "JackPass123"
+  }
+]

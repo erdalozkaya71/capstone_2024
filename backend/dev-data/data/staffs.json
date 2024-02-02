@@ -1,0 +1,89 @@
+[
+  {
+    "staffInformation": {
+      "name": "Emily",
+      "surname": "Tremblay",
+      "position": "Dental Hygienist",
+      "startedAt": "2019-04-22"
+    },
+    "contactDetails": {
+      "email": "emily.tremblay@dentalsmile.ca",
+      "tel": "604-123-4567"
+    },
+    "address": {
+      "street": "100 Kingsway",
+      "city": "Vancouver",
+      "province": "BC",
+      "zipCode": "V5T 1J9",
+      "country": "Canada"
+    },
+    "personalDetails": {
+      "qualifications": "Diploma in Dental Hygiene",
+      "specialization": "Pediatric Dentistry",
+      "licence": "BCDH123",
+      "dateOfBirth": "1988-07-14",
+      "gender": "Female",
+      "workschedule": "Full-time",
+      "hobbies": "Hiking, Photography",
+      "photo": "emily.jpg"
+    }
+  },
+  {
+    "staffInformation": {
+      "name": "John",
+      "surname": "Doe",
+      "position": "Dentist",
+      "startedAt": "2020-01-10"
+    },
+    "contactDetails": {
+      "email": "john.doe@example.com",
+      "tel": "123-456-7890"
+    },
+    "address": {
+      "street": "1067 Leslie St",
+      "city": "Richmond Hill",
+      "province": "Ontario",
+      "zipCode": "A5T 5U7",
+      "country": "Canada"
+    },
+    "personalDetails": {
+      "qualifications": "DDS",
+      "specialization": "Orthodontics",
+      "licence": "XYZ123",
+      "dateOfBirth": "1980-05-15",
+      "gender": "Male",
+      "workschedule": "Full-time",
+      "hobbies": "Golf",
+      "photo": "profile1.jpg"
+    }
+  },
+  {
+    "staffInformation": {
+      "name": "Jennifer",
+      "surname": "Mansion",
+      "position": "Dentist Assistant",
+      "startedAt": "2020-04-13"
+    },
+    "contactDetails": {
+      "email": "jennifer.mansion@example.com",
+      "tel": "123-456-7890"
+    },
+    "address": {
+      "street": "34 King St",
+      "city": "Toronto",
+      "province": "Ontario",
+      "zipCode": "Y2E 4R5",
+      "country": "Canada"
+    },
+    "personalDetails": {
+      "qualifications": "DDS",
+      "specialization": "Orthodontics",
+      "licence": "XYZ123",
+      "dateOfBirth": "1980-05-15",
+      "gender": "Male",
+      "workschedule": "Full-time",
+      "hobbies": "Golf",
+      "photo": "profile1.jpg"
+    }
+  }
+]
