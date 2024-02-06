@@ -1,22 +1,26 @@
 import React from 'react';
 import StaffCard from './StaffCard';
 
-const staffMembers = [
-  // ... Populate with your staff member data
+const staff = [
   {
     id: 1,
-    name: "Jennifer Smith",
-    position: "Dental Assistant",
-    email: "jennifer.smith@dentistoffice.com",
-    image: "https://placehold.co/100x100",
-    details: "Jennifer brings a wealth of education and training to our dental office. She holds an Associate Degree in Dentistry from ABC College and specializes in providing comprehensive support to our dental team, demonstrating proficiency in various areas of dental assistance."
+    name: 'Jennifer',
+    surname: 'Smith',
+    position: 'Dental Assistance',
+    email: 'jennifer@gmail.com',
+    tel: '(416)555-55-55',
+    address: '12 Leslie Street, No: 80 Toronto, Ontario T5R E9T',
+    qualifications: 'Associate Degree in Dental Assisting from ABC College.',
+    specialization: 'Jennifer specializes in providing comprehensive support to our dental team, demonstrating proficiency in various areas of dental assistance.',
+    image: 'https://placehold.co/150x150' // Placeholder image
   }
 ];
 
+
 const StaffList = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {staffMembers.map((member, index) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+      {staff.map((member, index=1) => (
         <StaffCard key={index} staff={member} />
       ))}
     </div>
