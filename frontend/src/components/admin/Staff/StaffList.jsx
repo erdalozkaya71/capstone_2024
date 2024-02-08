@@ -1,27 +1,37 @@
 import React from 'react';
 import StaffCard from './StaffCard';
-
-const staff = [
-  {
-    id: 1,
-    name: 'Jennifer',
-    surname: 'Smith',
-    position: 'Dental Assistance',
-    email: 'jennifer@gmail.com',
-    tel: '(416)555-55-55',
-    address: '12 Leslie Street, No: 80 Toronto, Ontario T5R E9T',
-    qualifications: 'Associate Degree in Dental Assisting from ABC College.',
-    specialization: 'Jennifer specializes in providing comprehensive support to our dental team, demonstrating proficiency in various areas of dental assistance.',
-    image: 'https://placehold.co/150x150' // Placeholder image
-  }
-];
-
+import { useState , useEffect} from 'react';
 
 const StaffList = () => {
+  
+const [staffs, setStaffList] = useState([]);
+
+  //use effect to fetch the staff from the server
+  // store staff after fetching
+
+useEffect(() => {
+  const fetchStaff = async () => {
+    try{
+      const response = await fetch('http://localhost:3000/api/v1/staff');
+      const data = await response.json();
+      const staffData = data.data.data;
+
+      // console.log(staffData)
+      setStaffList(staffData);
+
+    }catch(error){
+      console.log(error);
+    }
+  }
+  fetchStaff();
+});
+
+
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-      {staff.map((member, index=1) => (
-        <StaffCard key={index} staff={member} />
+    <div className="gap-4">
+      {staffs.map((staff) => (
+        <StaffCard key={staff._id} staff={staff} />
       ))}
     </div>
   );

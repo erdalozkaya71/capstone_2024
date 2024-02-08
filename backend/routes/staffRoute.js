@@ -11,15 +11,21 @@ router
     //authController.restrictTo("admin", "secretary"),
     staffController.getAllStaff
   )
-  .post(authController.restrictTo("admin"), staffController.createStaff);
+  .post(
+    // authController.restrictTo("admin"), 
+    staffController.createStaff);
 
 router
   .route("/:id")
   .get(
-    authController.restrictTo("admin", "secretary"),
+    // authController.restrictTo("admin", "secretary"),
     staffController.getStaff
   )
-  .patch(authController.restrictTo("admin"), staffController.updateStaff)
-  .delete(authController.restrictTo("admin"), staffController.deleteStaff);
+  .patch(
+    //authController.restrictTo("admin"), 
+    staffController.updateStaff)
+  .delete(
+    // authController.restrictTo("admin"), 
+    staffController.deleteStaff);
 
 module.exports = router;

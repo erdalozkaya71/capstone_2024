@@ -6,20 +6,40 @@ const StaffProfileCard = ({staff}) => {
 
     // staff information state
     const [staffInformation, setStaffInformation] = useState({
-        id: staff.id,
-        name: staff.name,
-        surname: staff.surname,
-        position: staff.position,
-        email: staff.email,
-        phone: staff.phone,
-        address: staff.address,
-        qualifications: staff.qualifications,
-        specialization: staff.specialization,
-        image: staff.image
-    });
+      id: staff._id,
+      name: staff.staffInformation.name,
+      surname: staff.staffInformation.surname,
+      position: staff.staffInformation.position,
+      email: staff.contactDetails.email,
+      phone: staff.contactDetails.tel,
+      address: `${staff.address.street}, ${staff.address.city}, ${staff.address.province}, ${staff.address.zipCode}, ${staff.address.country}`,
+      qualifications: staff.personalDetails.qualifications,
+      specialization: staff.personalDetails.specialization,
+      image: staff.personalDetails.photo
+  });
   
     const handleUpdate = () => console.log("Update action for", staff.name);
-    const handleDelete = () => console.log("Delete action for", staff.name);
+
+    const handleDelete = async (id) => {
+      console.log("Delete action for staff with ID:", id);
+      try {
+        const response = await fetch(`http://127.0.0.1:3000/api/v1/staff/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Error in DELETE request: ${response.status} ${errorText}`);
+        }
+    
+        console.log("Staff deleted successfully");
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
   
     return (
       <div className="bg-white rounded-lg shadow-lg p-6 m-4 flex flex-col md:flex-row md:max-w-2xl">
@@ -47,12 +67,12 @@ const StaffProfileCard = ({staff}) => {
             <p><strong>Specialization:</strong> {staffInformation.specialization}</p>
           </div>
           <div className="flex mt-4">
-            <button onClick={handleUpdate} className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 mr-2">Update</button>
-            <button onClick={handleDelete} className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">Delete</button>
+            <button onClick={() => handleUpdate()} className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 mr-2">Update</button>
+            <button onClick={() => handleDelete(staffInformation.id)} className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">Delete</button>
           </div>
 
           {/* connect to details page with staff information */}
-          <Link to={`/admin/staff/${staffInformation.id}`} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 text-center">View Details</Link>
+          <Link to={`/admin/staff/${staffInformation.id}`} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Details</Link>
         </div>
       </div>
     );

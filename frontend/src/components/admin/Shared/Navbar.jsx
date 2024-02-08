@@ -1,4 +1,8 @@
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGear } from "@fortawesome/free-solid-svg-icons";
+
+
 
 const Navbar = () => {
   return (
@@ -32,7 +36,7 @@ const Navbar = () => {
               to="/settings"
               className="bg-blue-800 p-1 rounded-full text-blue-200 hover:text-white focus:outline-none focus:shadow-outline"
             >
-              <i className="fas fa-cog"></i>
+              <FontAwesomeIcon icon={faGear} />
             </Link>
           </div>
         </div>
