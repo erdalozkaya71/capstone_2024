@@ -2,6 +2,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './App.css';
 
+// User
+import UserHome from './components/user/LandingPage';
+import UserAboutPage from "./components/user/Pages/AboutPage";
+import UserBookingPage from "./components/user/Pages/BookingPage";
+import UserContactPage from "./components/user/Pages/ContactPage";
+import UserServicePage from "./components/user/Pages/ServicesPage"
+
+// Admin
 import AdminLogin from './components/admin/Shared/Login';
 import AdminSignup from './components/admin/Shared/Signup';
 import AdminForgotPassword from './components/admin/Shared/Forgot_password'; // parent component for forgot password section
@@ -16,6 +24,13 @@ function App() {
     <div className="App h-lvh">
       <BrowserRouter>
         <Routes>
+          {/* USER */}
+          <Route path="/" element={<UserHome />}/>
+          <Route path="/user/services" element={<UserServicePage />}/>
+          <Route path="/user/about" element={<UserAboutPage />}/>
+          <Route path="/user/contact" element={<UserContactPage />}/>
+          <Route path="/user/book-appointment" element={<UserBookingPage />}/>
+
           {/* ADMIN */}
           <Route path="/admin/login" element={<AdminLogin />}/>
           <Route path="/admin/signup" element={<AdminSignup />}/>
