@@ -5,19 +5,21 @@ const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
+
+
 const signToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id }, 'temporary_hardcoded_secret', {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
-  console.log(signToken());
 };
+
 
 const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
+  // Ensure the environment variable is a number. If not, default to 90 days.
+  const jwtCookieExpiresIn = parseInt(process.env.JWT_COOKIE_EXPIRES_IN, 10) || 90;
   const cookieOptions = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    ),
+    expires: new Date(Date.now() + jwtCookieExpiresIn * 24 * 60 * 60 * 1000),
     httpOnly: true,
   };
   if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
@@ -35,6 +37,23 @@ const createSendToken = (user, statusCode, res) => {
     },
   });
 };
+
+exports.signup = catchAsync(async (req, res, next) => {
+  const { name, email, role, password, passwordConfirm } = req.body;
+
+  // Create user will automatically hash the password because of the pre-save middleware
+  const newUser = await User.create({
+    name,
+    email,
+    role,
+    password,
+    passwordConfirm
+  });
+
+  // We have the function createSendToken that creates and sends the token
+  createSendToken(newUser, 201, res);
+});
+
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -183,3 +202,10 @@ exports.restrictTo = (...role) => {
     next();
   };
 };
+
+
+
+
+
+
+// TODO: token verification functions
