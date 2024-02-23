@@ -1,29 +1,35 @@
+require('dotenv').config(); 
+console.log('JWT Secret after dotenv config:', process.env.JWT_SECRET); // for debugging purposes
+
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-
-
-dotenv.config({ path: "./config.env" });
 const app = require("./app");
 
-const DB = process.env.DATABASE.replace(
-  "<PASSWORD>",
-  process.env.DATABASE_PASSWORD
-);
+// Import Routers
+const authRouter = require('./routes/authRoute');
+const userRouter = require('./routes/userRoute'); 
 
+// Use Routers
+app.use('/api/users', userRouter);
+app.use('/api/auth', authRouter);
+
+// Database Connection
+const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.DATABASE_PASSWORD);
 mongoose
   .connect(DB)
   .then(() => console.log("DB connection successful"))
   .catch((err) => console.error(`DB connection error: ${err.message}`));
 
+// Server Setup
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log(`App is listening on port ${port}...`);
 });
 
-// process.on("unhandledRejection", (err) => {
-//   console.log("UNHANDLED REJECTION! Shuttingdown...");
-//   console.log(err.name, err.message);
-//   server.close(() => {
-//     process.exit(1);
-//   });
-// });
+// Global Error Handling for Unhandled Rejections
+process.on("unhandledRejection", (err) => {
+  console.log("UNHANDLED REJECTION! Shutting down...");
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
+});
