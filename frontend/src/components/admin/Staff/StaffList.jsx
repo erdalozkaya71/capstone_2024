@@ -24,7 +24,7 @@ useEffect(() => {
     }
   }
   fetchStaff();
-});
+}, [staffs]);
 
 
 

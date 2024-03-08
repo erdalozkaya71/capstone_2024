@@ -11,6 +11,7 @@ const signToken = (id) => {
   return jwt.sign({ id }, 'temporary_hardcoded_secret', {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
+  //console.log("signToken:" + signToken());
 };
 
 
@@ -19,15 +20,19 @@ const createSendToken = (user, statusCode, res) => {
   // Ensure the environment variable is a number. If not, default to 90 days.
   const jwtCookieExpiresIn = parseInt(process.env.JWT_COOKIE_EXPIRES_IN, 10) || 90;
   const cookieOptions = {
-    expires: new Date(Date.now() + jwtCookieExpiresIn * 24 * 60 * 60 * 1000),
+    expires: new Date(
+      Date.now() +
+        Number(process.env.JWT_COOKIE_EXPIRES_IN) * 24 * 60 * 60 * 1000
+    ),
     httpOnly: true,
   };
+
   if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
   res.cookie("jwt", token, cookieOptions);
 
-  //Remove password from output
-  user.password = undefined;
+  // Remove password from output
+  //user.password = undefined;
 
   res.status(statusCode).json({
     status: "success",
@@ -83,13 +88,14 @@ exports.logout = (req, res) => {
 };
 
 exports.protect = catchAsync(async (req, res, next) => {
-  // 1) Getting token and check of it's there
   let token;
+  console.log(req.headers);
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
   ) {
     token = req.headers.authorization.split(" ")[1];
+    console.log("Token: " + token);
   } else if (req.cookies.jwt) {
     token = req.cookies.jwt;
   }
@@ -100,32 +106,35 @@ exports.protect = catchAsync(async (req, res, next) => {
     );
   }
 
-  // 2) Verification token
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  console.log("Decoded: " + decoded);
 
-  // 3) Check if user still exists
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
     return next(
-      new AppError(
-        "The user belonging to this token does no longer exist.",
-        401
-      )
+      new AppError("The user belonging to this token does not exist.", 401)
     );
   }
 
-  // 4) Check if user changed password after the token was issued
-  if (currentUser.changedPasswordAfter(decoded.iat)) {
-    return next(
-      new AppError("User recently changed password! Please log in again.", 401)
-    );
-  }
+  console.log(`User: ${currentUser}`); // Logging the user object
+  console.log(`User Role: ${currentUser.role}`); // Logging the user's role
 
-  // GRANT ACCESS TO PROTECTED ROUTE
   req.user = currentUser;
-  res.locals.user = currentUser;
   next();
 });
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    console.log(`User Role in restrictTo: ${req.user.role}`); // Logging the user's role in restrictTo
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError("You do not have permission to perform this action", 403)
+      );
+    }
+
+    next();
+  };
+};
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POSTed email
@@ -187,25 +196,3 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   // 4) Log the user in, send JWT
   createSendToken(user, 200, res);
 });
-
-console.log(signToken());
-
-exports.restrictTo = (...role) => {
-  return (req, res, next) => {
-    // roles ['admin', 'lead-guide']. role='user'
-    if (!role.includes(req.user.role)) {
-      return next(
-        new AppError("You do not have permission to perform this action", 403)
-      );
-    }
-
-    next();
-  };
-};
-
-
-
-
-
-
-// TODO: token verification functions
