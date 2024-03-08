@@ -1,7 +1,11 @@
 const express = require("express");
 const inventoryController = require("../controllers/inventoryController");
+const authController = require("../controllers/authController");
 
 const router = express.Router();
+
+router.use(authController.protect);
+router.use(authController.restrictTo("admin", "secretary"));
 
 router
   .route("/")

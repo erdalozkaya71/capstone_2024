@@ -8,18 +8,32 @@ const router = express.Router();
 router
   .route("/")
   .get(
-    //authController.restrictTo("admin", "secretary"),
+    authController.protect,
+    authController.restrictTo("admin", "secretary"),
     staffController.getAllStaff
   )
-  .post(authController.restrictTo("admin"), staffController.createStaff);
+  .post(
+    authController.protect,
+    authController.restrictTo("admin"),
+    staffController.createStaff
+  );
 
 router
   .route("/:id")
   .get(
+    authController.protect,
     authController.restrictTo("admin", "secretary"),
     staffController.getStaff
   )
-  .patch(authController.restrictTo("admin"), staffController.updateStaff)
-  .delete(authController.restrictTo("admin"), staffController.deleteStaff);
+  .patch(
+    authController.protect,
+    authController.restrictTo("admin"),
+    staffController.updateStaff
+  )
+  .delete(
+    authController.protect,
+    authController.restrictTo("admin"),
+    staffController.deleteStaff
+  );
 
 module.exports = router;
