@@ -1,10 +1,29 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
+import  useToken  from '../useToken';
+
 
 
 
 const Navbar = () => {
+
+  const [email,setEmail] = useState("User");
+  const user = useToken();
+
+  useEffect(() => {
+    if(user){
+      setEmail(user.id);
+    }
+  },[user]); // Depend on the user if it changes update the email
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/admin/login";
+  }
+  
+
   return (
     <nav className="bg-blue-600">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,13 +50,14 @@ const Navbar = () => {
             </div>
           </div>
           <div className="flex items-center">
-            <div className="text-sm text-white mr-4">admin@domain.ca</div>
-            <Link
-              to="/settings"
+            <div className="text-sm text-white mr-4">Hello! {email}</div>
+            <button
+              onClick={handleLogout}
               className="bg-blue-800 p-1 rounded-full text-blue-200 hover:text-white focus:outline-none focus:shadow-outline"
+              title="Logout"
             >
-              <FontAwesomeIcon icon={faGear} />
-            </Link>
+              <FontAwesomeIcon icon={faSignOutAlt} />
+            </button>
           </div>
         </div>
       </div>

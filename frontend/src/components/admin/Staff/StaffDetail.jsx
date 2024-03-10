@@ -9,6 +9,9 @@ const StaffDetail = () => {
   // get id from the URL and fetch the staff member from the server
   const { id } = useParams(); // get the id from the URL
 
+  // get token from cookies
+  const userToken = localStorage.getItem('token');
+
   // staff information state
   const [staff, setStaff] = useState({
     staffInformation: { name: '', surname: '', position: '' },
@@ -17,12 +20,16 @@ const StaffDetail = () => {
     personalDetails: { qualifications: '', specialization: '', dateOfBirth: '', gender: '', schedule: '', hobbies: '' },
   });
   
-
   useEffect(() => {
     const fetchStaff = async () => {
       // fetch current staff with ID from the server
       try{
-        const response = await fetch(`http://127.0.0.1:3000/api/v1/staff/${id}`);
+        const response = await fetch(`http://localhost:3000/api/v1/staff/${id}`,{
+          method: 'GET',
+          headers: {
+            "Authorization": `Bearer ${userToken}`, // Include the JWT token in the 'Authorization' header
+          }
+        });
         const data = await response.json();
         const staffData = data.data.data;
         // console.log(staffData);

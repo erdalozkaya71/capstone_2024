@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../user/images/myDentLogo.png";
 import { useState } from "react";
 
@@ -7,14 +7,28 @@ const AdminLogin = () => {
 
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
+const navigate = useNavigate();
 
 const handleLogin = async (e) => {
   e.preventDefault();
   try{
-    const response = await fetch("http://localhost:3000/api/v1/auth/login", {email, password})
-    const user = await response.json();
-
-    console.log(user);
+    const response = await fetch("http://localhost:3000/api/v1/users/login",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    });
+    
+    if(response){
+      const data = await response.json();
+      console.log(data);
+      localStorage.setItem('token', data.token);
+      navigate("/admin/home");
+    }
 
   }catch(err){
     console.log(err);

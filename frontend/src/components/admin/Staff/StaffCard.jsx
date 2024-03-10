@@ -5,7 +5,7 @@ import { useState } from 'react';
 const StaffProfileCard = ({staff}) => {
 
     // staff information state
-    const [staffInformation, setStaffInformation] = useState({
+    const [staffInformation,] = useState({
       id: staff._id,
       name: staff.staffInformation.name,
       surname: staff.staffInformation.surname,

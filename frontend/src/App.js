@@ -2,6 +2,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './App.css';
 
+// Protected Route
+import ProtectedRoute from './protected';
+
 // User
 import UserHome from './components/user/LandingPage';
 import UserAboutPage from "./components/user/Pages/AboutPage";
@@ -32,19 +35,42 @@ function App() {
           <Route path="/user/book-appointment" element={<UserBookingPage />}/>
 
           {/* ADMIN */}
+          {/* Unprotected */}
           <Route path="/admin/login" element={<AdminLogin />}/>
           <Route path="/admin/signup" element={<AdminSignup />}/>
           <Route path="/admin/forgot-password" element={<AdminForgotPassword />}/>
-          <Route path="/admin/home" element={<AdminHome />}/>
-          <Route path="/admin/staff" element={<AdminStaffView />}/>
-          <Route path="/admin/staff/new" element={<AdminStaffAdd />}/>
-          <Route path="/admin/staff/:id" element={<AdminStaffDetails />}/>  
 
+          {/* Protected */}
+          <Route path="/admin/home" 
+            element={<ProtectedRoute>
+              <AdminHome />
+            </ProtectedRoute>
+            }
+          />
+          
+          <Route path="/admin/staff" 
+            element={
+              <ProtectedRoute>
+                <AdminStaffView />
+              </ProtectedRoute>
+            }
+          />
 
+          <Route path="/admin/staff/new"
+            element={
+              <ProtectedRoute>
+                <AdminStaffAdd />
+              </ProtectedRoute>
+            }
+          />
 
-
-
-
+          <Route path="/admin/staff/:id"
+            element={
+              <ProtectedRoute>
+                <AdminStaffDetails />
+              </ProtectedRoute>
+            }
+          />
 
         </Routes>
       </BrowserRouter>
