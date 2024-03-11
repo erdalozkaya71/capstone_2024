@@ -24,7 +24,7 @@ import AdminStaffAdd from './components/admin/Staff/AddNewStaff'; // parent comp
 import AdminStaffDetails from './components/admin/Staff/StaffDetail'; // parent component for staff info section
 // - INVENTORY
 import AdminInventoryView from './components/admin/Inventory/Inventory'; // parent component for inventory view section
-// import AdminInventoryAdd from './components/admin/Inventory/AddNewInventory'; // parent component for inventory add section
+import AdminInventoryAdd from './components/admin/Inventory/AddNewItem'; // parent component for inventory add section
 import AdminInventoryDetails from './components/admin/Inventory/ItemDetail'; // parent component for inventory info section
 
 
@@ -82,6 +82,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <AdminInventoryView />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/admin/inventory/new"
+            element={
+              <ProtectedRoute>
+                <AdminInventoryAdd />
               </ProtectedRoute>
             }
           />
