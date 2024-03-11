@@ -1,78 +1,58 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { deleteStaff } from './apiStaffCalls';
 
 const StaffProfileCard = ({staff}) => {
 
-    // staff information state
-    const [staffInformation,] = useState({
-      id: staff._id,
-      name: staff.staffInformation.name,
-      surname: staff.staffInformation.surname,
-      position: staff.staffInformation.position,
-      email: staff.contactDetails.email,
-      phone: staff.contactDetails.tel,
-      address: `${staff.address.street}, ${staff.address.city}, ${staff.address.province}, ${staff.address.zipCode}, ${staff.address.country}`,
-      qualifications: staff.personalDetails.qualifications,
-      specialization: staff.personalDetails.specialization,
-      image: staff.personalDetails.photo
-  });
+    const {
+      _id,
+      staffInformation,
+      contactDetails,
+      address,
+      personalDetails,
+    } = staff;
+  
+    const detailsPath = `/admin/staff/${_id}`;
   
     const handleUpdate = () => console.log("Update action for", staff.name);
 
     const handleDelete = async (id) => {
-      console.log("Delete action for staff with ID:", id);
-      try {
-        const response = await fetch(`http://127.0.0.1:3000/api/v1/staff/${id}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-    
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Error in DELETE request: ${response.status} ${errorText}`);
-        }
-    
-        console.log("Staff deleted successfully");
-      } catch (error) {
-        console.error('Error:', error);
+      const response = await deleteStaff(id);
+      if (response.status === 200) {
+        console.log("Staff member deleted successfully");
+      } else {
+        console.log("There was an error deleting the staff member");
       }
     };
   
     return (
-      <div className="bg-white rounded-lg shadow-lg p-6 m-4 flex flex-col md:flex-row md:max-w-2xl">
+      <div className="flex justify-between items-center bg-white rounded-lg shadow-md overflow-hidden my-4">
         <img
-          src={staffInformation.image}
+          src={personalDetails.photo || 'default-profile.jpg'} // Replace 'default-profile.jpg' with the path to a default image
           alt={`${staffInformation.name} ${staffInformation.surname}`}
-          className="rounded-full border-4 border-blue-300 h-32 w-32 md:h-48 md:w-48"
+          className="w-32 h-32 rounded-full object-cover"
+          style={{ flex: '0 0 auto' }} // Fixed size for image, doesn't grow or shrink
         />
-        <div className="mt-4 md:mt-0 md:ml-6 flex-grow">
-          <div className="text-lg">
-            <h2 className="text-blue-500 font-semibold">Staff Information:</h2>
-            <p><strong>Name:</strong> {staffInformation.name}</p>
-            <p><strong>Surname:</strong> {staffInformation.surname}</p>
-            <p><strong>Position:</strong> {staffInformation.position}</p>
+        <div className="flex-grow p-4">
+          <h3 className="text-lg font-semibold">{`${staffInformation.name} ${staffInformation.surname}`}</h3>
+          <p className="text-sm">{staffInformation.position}</p>
+          <p className="text-sm">{contactDetails.email}</p>
+          <p className="text-sm">{`${address.street}, ${address.city}, ${address.province}, ${address.zipCode}, ${address.country}`}</p>
+          <div className="text-sm mt-2">
+            <p>{`Qualifications: ${personalDetails.qualifications}`}</p>
+            <p>{`Specialization: ${personalDetails.specialization}`}</p>
           </div>
-          <div className="mt-4">
-            <h2 className="text-blue-500 font-semibold">Contact Details:</h2>
-            <p><strong>Email:</strong> {staffInformation.email}</p>
-            <p><strong>Tel:</strong> {staffInformation.phone}</p>
-            <p><strong>Address:</strong> {staffInformation.address}</p>
-          </div>
-          <div className="mt-4">
-            <h2 className="text-blue-500 font-semibold">Professional Details:</h2>
-            <p><strong>Qualifications:</strong> {staffInformation.qualifications}</p>
-            <p><strong>Specialization:</strong> {staffInformation.specialization}</p>
-          </div>
-          <div className="flex mt-4">
-            <button onClick={() => handleUpdate()} className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 mr-2">Update</button>
-            <button onClick={() => handleDelete(staffInformation.id)} className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">Delete</button>
-          </div>
-
-          {/* connect to details page with staff information */}
-          <Link to={`/admin/staff/${staffInformation.id}`} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Details</Link>
+        </div>
+        <div className="flex flex-col p-4">
+          <button onClick={handleUpdate} className="bg-green-300 hover:bg-green-400 text-white py-2 px-4 rounded text-center">
+            Update
+          </button>
+          <button onClick={handleDelete} className="bg-red-300 hover:bg-red-400 text-white py-2 px-4 rounded text-center">
+            Delete
+          </button>
+          <Link to={detailsPath} className="bg-blue-300 hover:bg-blue-400 text-white py-2 px-4 rounded mt-2 text-center">
+            Details
+          </Link>
         </div>
       </div>
     );
