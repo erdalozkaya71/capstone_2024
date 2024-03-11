@@ -15,7 +15,6 @@ const Staff = () => {
         <StaffList />
       </div>
     </div>
-    
   );
 };
 

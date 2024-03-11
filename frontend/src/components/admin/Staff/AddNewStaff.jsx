@@ -9,7 +9,6 @@ const initialStaffState = {
     name: '',
     surname: '',
     position: '',
-    startedAt: '', // Format this as needed for your date input
   },
   contactDetails: {
     email: '',
@@ -18,19 +17,19 @@ const initialStaffState = {
   address: {
     street: '',
     city: '',
-    province: 'Province', // Default to a placeholder value or the most common choice
+    province: 'Province',
     zipCode: '',
     country: '',
   },
   personalDetails: {
     qualifications: '',
     specialization: '',
-    licence: '', // Note the British English spelling to match your database
-    dateOfBirth: '', // Format this as needed for your date input
+    licence: '', 
+    dateOfBirth: '', 
     gender: '',
-    workschedule: '', // Make sure to keep the camelCase consistent with your database if it's case-sensitive
+    workschedule: '', 
     hobbies: '',
-    photo: '', // Provide a default or leave empty for a placeholder image
+    photo: '',
   },
 };
 
@@ -117,12 +116,12 @@ const AddNewStaffForm = () => {
               {/* Professional Details */}
               <textarea name="personalDetails.qualifications" value={staff.personalDetails.qualifications} onChange={handleChange} placeholder="Qualifications" className="form-textarea px-4 py-2 rounded" rows="3" required></textarea>
               <textarea name="personalDetails.specialization" value={staff.personalDetails.specialization} onChange={handleChange} placeholder="Specialization" className="form-textarea px-4 py-2 rounded" rows="3" required></textarea>
-              <textarea name="personalDetails.license" value={staff.personalDetails.license} onChange={handleChange} placeholder="License/Certification" className="form-textarea px-4 py-2 rounded" rows="3" required></textarea>
+              <textarea name="personalDetails.licence" value={staff.personalDetails.licence} onChange={handleChange} placeholder="License/Certification" className="form-textarea px-4 py-2 rounded" rows="3" required></textarea>
               
               {/* Personal Details */}
               <input type="date" name="personalDetails.dateOfBirth" value={staff.personalDetails.dateOfBirth} onChange={handleChange} placeholder="Date of Birth" className="form-input px-4 py-2 rounded" required />
               <input type="text" name="personalDetails.gender" value={staff.personalDetails.gender} onChange={handleChange} placeholder="Gender" className="form-input px-4 py-2 rounded" required />
-              <input type="text" name="personalDetails.workSchedule" value={staff.personalDetails.workSchedule} onChange={handleChange} placeholder="Working Schedule" className="form-input px-4 py-2 rounded" required />
+              <input type="text" name="personalDetails.workschedule" value={staff.personalDetails.workschedule} onChange={handleChange} placeholder="Working Schedule" className="form-input px-4 py-2 rounded" required />
               <input type="text" name="personalDetails.hobbies" value={staff.personalDetails.hobbies} onChange={handleChange} placeholder="Hobbies/Interests" className="form-input px-4 py-2 rounded" required />
             </div>
             

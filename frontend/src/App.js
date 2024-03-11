@@ -12,14 +12,20 @@ import UserBookingPage from "./components/user/Pages/BookingPage";
 import UserContactPage from "./components/user/Pages/ContactPage";
 import UserServicePage from "./components/user/Pages/ServicesPage"
 
-// Admin
+// Admin 
+// - SHARED
 import AdminLogin from './components/admin/Shared/Login';
 import AdminSignup from './components/admin/Shared/Signup';
 import AdminForgotPassword from './components/admin/Shared/Forgot_password'; // parent component for forgot password section
 import AdminHome from './components/admin/HomePage'; // parent component for admin home page
+// - STAFF
 import AdminStaffView from './components/admin/Staff/Staff'; // parent component for staff view section
 import AdminStaffAdd from './components/admin/Staff/AddNewStaff'; // parent component for staff add section
 import AdminStaffDetails from './components/admin/Staff/StaffDetail'; // parent component for staff info section
+// - INVENTORY
+import AdminInventoryView from './components/admin/Inventory/Inventory'; // parent component for inventory view section
+// import AdminInventoryAdd from './components/admin/Inventory/AddNewInventory'; // parent component for inventory add section
+import AdminInventoryDetails from './components/admin/Inventory/ItemDetail'; // parent component for inventory info section
 
 
 function App() {
@@ -68,6 +74,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <AdminStaffDetails />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/admin/inventory"
+            element={
+              <ProtectedRoute>
+                <AdminInventoryView />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/admin/inventory/:id"
+            element={
+              <ProtectedRoute>
+                <AdminInventoryDetails />
               </ProtectedRoute>
             }
           />

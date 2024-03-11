@@ -47,7 +47,7 @@ const StaffProfileCard = ({staff}) => {
           <button onClick={handleUpdate} className="bg-green-300 hover:bg-green-400 text-white py-2 px-4 rounded text-center">
             Update
           </button>
-          <button onClick={handleDelete} className="bg-red-300 hover:bg-red-400 text-white py-2 px-4 rounded text-center">
+          <button onClick={() => handleDelete(_id) } className="bg-red-300 hover:bg-red-400 text-white py-2 px-4 rounded text-center">
             Delete
           </button>
           <Link to={detailsPath} className="bg-blue-300 hover:bg-blue-400 text-white py-2 px-4 rounded mt-2 text-center">
