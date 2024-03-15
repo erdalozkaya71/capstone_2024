@@ -9,6 +9,10 @@ const staffRouter = require("./routes/staffRoute");
 const inventoryRouter = require("./routes/inventoryRoute");
 const authRouter = require("./routes/authRoute"); 
 const globalErrorHandler = require('./controllers/errorController');
+const workScheduleRouter = require('./routes/workScheduleRoute');
+
+
+
 
 const app = express();
 
@@ -16,6 +20,7 @@ const app = express();
 app.use(cors());
 
 // Body parsers
+app.use('/api/v1', workScheduleRouter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(globalErrorHandler);
