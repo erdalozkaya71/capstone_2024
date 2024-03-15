@@ -28,10 +28,12 @@ const getAllStaff = async () => {
         "Authorization": `Bearer ${USER_TOKEN}`, // Include the JWT token in the 'Authorization' header
       }
     });
-    const data = await response.json();
-    const staffData = data.data.data;
-
-    return staffData;
+    
+    if(response.ok){
+      const data = await response.json();
+      const staffData = data.data.data;
+      return staffData;
+    }
 
   }catch(error){
     console.log(error);
@@ -47,10 +49,12 @@ const getStaff = async (id) => {
             "Authorization": `Bearer ${USER_TOKEN}`, 
           }
         });
-        const data = await response.json();
-        const staffData = data.data.data;
-        // console.log(staffData);
-        return staffData;
+        
+        if(response.ok){
+          const data = await response.json();
+          const staffData = data.data.data;
+          return staffData;
+        }
       }catch(error){
         console.error('Error:', error);
     }
@@ -80,7 +84,7 @@ const deleteStaff = async (id) => {
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${USER_TOKEN}`,
-        },
+        }
         });
     
         return response;

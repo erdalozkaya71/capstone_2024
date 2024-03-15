@@ -28,10 +28,12 @@ const getAllInventory = async () => {
                 "Authorization": `Bearer ${USER_TOKEN}`, // Include the JWT token in the 'Authorization' header
             }
         });
-        const data = await response.json();
-        const inventoryData = data.data.data;
-
-        return inventoryData;
+        
+        if(response.ok){
+            const data = await response.json();
+            const inventoryData = data.data.data;
+            return inventoryData;
+        }
 
     } catch (error) {
         console.log(error);
@@ -47,10 +49,12 @@ const getItem = async (id) => {
                 "Authorization": `Bearer ${USER_TOKEN}`,
             }
         });
-        const data = await response.json();
-        const inventoryData = data.data.data;
-        // console.log(inventoryData);
-        return inventoryData;
+       
+        if(response.ok){
+            const data = await response.json();
+            const inventoryData = data.data.data;
+            return inventoryData;
+        }
     } catch (error) {
         console.error('Error:', error);
     }
@@ -59,7 +63,7 @@ const getItem = async (id) => {
 const updateItem = async (id, inventoryData) => {
     try {
         const response = await fetch(`${API_BASE_URL}/inventory/${id}`, {
-            method: "PUT",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${USER_TOKEN}`,

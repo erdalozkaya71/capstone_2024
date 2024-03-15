@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { deleteStaff } from './apiStaffCalls';
 
-const StaffProfileCard = ({staff}) => {
+const StaffProfileCard = ({staff, onDelete}) => {
 
     const {
       _id,
@@ -13,15 +13,19 @@ const StaffProfileCard = ({staff}) => {
     } = staff;
   
     const detailsPath = `/admin/staff/${_id}`;
+    const updatePath = `/admin/staff/${_id}/update`;
   
-    const handleUpdate = () => console.log("Update action for", staff.name);
-
-    const handleDelete = async (id) => {
-      const response = await deleteStaff(id);
-      if (response.status === 200) {
-        console.log("Staff member deleted successfully");
-      } else {
-        console.log("There was an error deleting the staff member");
+    const handleDelete = async () => {
+      try{
+        const response = await deleteStaff(_id);
+        if (response.ok) {
+          console.log("Staff member deleted successfully");
+          onDelete(_id);
+        } else {
+          console.log("There was an error deleting the staff member");
+        }
+      }catch(error){
+          console.error("There was an error deleting the staff member", error);
       }
     };
   
@@ -44,10 +48,10 @@ const StaffProfileCard = ({staff}) => {
           </div>
         </div>
         <div className="flex flex-col p-4">
-          <button onClick={handleUpdate} className="bg-green-300 hover:bg-green-400 text-white py-2 px-4 rounded text-center">
+          <Link to={updatePath} className="bg-green-300 hover:bg-green-400 text-white py-2 px-4 rounded text-center">
             Update
-          </button>
-          <button onClick={() => handleDelete(_id) } className="bg-red-300 hover:bg-red-400 text-white py-2 px-4 rounded text-center">
+          </Link>
+          <button onClick={handleDelete} className="bg-red-300 hover:bg-red-400 text-white py-2 px-4 rounded text-center">
             Delete
           </button>
           <Link to={detailsPath} className="bg-blue-300 hover:bg-blue-400 text-white py-2 px-4 rounded mt-2 text-center">

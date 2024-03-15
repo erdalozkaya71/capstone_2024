@@ -1,7 +1,8 @@
 import React from 'react';
-import {useParams } from 'react-router-dom';
+import {useParams, useNavigate, Link } from 'react-router-dom';
 import { useState , useEffect} from 'react';
 import { getItem,deleteItem } from './apiInvCalls'
+
 
 const initialItemState = {
     product: "",
@@ -28,9 +29,11 @@ const initialItemState = {
 };
 
 const ItemDetail = () => {
+    const navigate = useNavigate();
     const { id } = useParams(); // get the id from the URL
-
     const [item, setItem] = useState(initialItemState);
+
+    const updatePath = `/admin/inventory/${id}/update`;
 
     useEffect(() => {
         getItem(id).then((data) => {
@@ -38,10 +41,13 @@ const ItemDetail = () => {
         });
     }, [id]); // will depend on the id from the URL
 
-    const handleDelete = async (id) => {
-        console.log("Delete action for item" + id);
+    const handleDelete = async () => {
         try{
-            await deleteItem(id);
+          const response = await deleteItem(id);
+          if (response.ok) {
+            console.log("Item deleted successfully");
+            navigate('/admin/inventory');
+          }
         }catch(error){
             console.error('Error:', error);
         }
@@ -74,10 +80,10 @@ const ItemDetail = () => {
         </div>
       </div>
       <div className="flex flex-col md:flex-row md:items-center gap-2">
-        <button onClick={() => console.log("Update")} className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded transition duration-300">
+        <Link to={updatePath} className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded transition duration-300">
           Update
-        </button>
-        <button onClick={() => handleDelete(id)} className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition duration-300">
+        </Link>
+        <button onClick={handleDelete} className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition duration-300">
           Delete
         </button>
       </div>

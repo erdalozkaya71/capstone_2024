@@ -13,9 +13,18 @@ const Navbar = () => {
   const user = useToken();
 
   useEffect(() => {
-    if(user){
-      setEmail(user.id);
+    const fetchEmail = async () => {
+      try{
+        const response = await fetch(`http://localhost:3000/api/v1/users/${user.id}`);
+        const data = await response.json();
+        // console.log(data.data.data.email);
+        setEmail(data.data.data.email);
+      }catch(error){
+        console.error("Error fetching email", error);
+      } 
     }
+
+    fetchEmail();
   },[user]); // Depend on the user if it changes update the email
 
   const handleLogout = () => {

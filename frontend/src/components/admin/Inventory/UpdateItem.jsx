@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { addItem } from './apiInvCalls'; // Uncomment and set the correct import path
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getItem , updateItem } from './apiInvCalls'; // Uncomment and set the correct import path
 
 const initialItemState = {
     product: "",
@@ -26,10 +26,36 @@ const initialItemState = {
     },
 };
 
-const AddInventoryItem = () => {
-  // initial state based on your payload
-  const [item, setItem] = useState({ ...initialItemState });
-  const navigate = useNavigate();
+const UpdateItem = () => {
+
+    const { id } = useParams();
+    const [item, setItem] = useState({ ...initialItemState });
+    const navigate = useNavigate();
+
+    function formatDateToYYYYMMDD(dateString) {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = `${date.getMonth() + 1}`.padStart(2, '0'); // Months are 0-based
+        const day = `${date.getDate()}`.padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+    
+
+    useEffect(() => {
+        const fetchItem = async () => {
+            try{
+                const data = await getItem(id);
+                data.purchaseDate = formatDateToYYYYMMDD(data.purchaseDate);
+                setItem(data);
+            }catch(error){
+                console.error('Error:', error);
+            }            
+        }
+
+        fetchItem();
+    }, [id]);
+
+
 
   const handleChange = ({ target: { name, value } }) => {
     setItem((prevItem) => {
@@ -56,7 +82,6 @@ const AddInventoryItem = () => {
     });
   };
   
-  
 
   const handleImageChange = (e) => {
     // This needs to be implemented according to how you handle file uploads
@@ -65,11 +90,11 @@ const AddInventoryItem = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await addItem(item);
+    const response = await updateItem(id,item);
     const data = await response.json();
 
     if (response.ok) {
-      alert('Inventory item added successfully');
+      alert('Inventory item Edited successfully');
       navigate('/admin/inventory'); // Redirect to inventory list or another appropriate route
     } else {
       console.error('Error creating inventory item:', data);
@@ -82,7 +107,7 @@ const AddInventoryItem = () => {
         onSubmit={handleSubmit}
         className="bg-gray-100 p-6 rounded shadow-md"
       >
-        <h2 className="text-2xl font-semibold mb-6">Add New Inventory Item</h2>
+        <h2 className="text-2xl font-semibold mb-6">Edit Inventory Item</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <input
             type="text"
@@ -248,4 +273,4 @@ const AddInventoryItem = () => {
   );
 };
 
-export default AddInventoryItem;
+export default UpdateItem;

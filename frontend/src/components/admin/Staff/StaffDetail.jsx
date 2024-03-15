@@ -1,5 +1,5 @@
 import React from 'react';
-import {useParams } from 'react-router-dom';
+import {useParams , Link} from 'react-router-dom';
 import { useState , useEffect} from 'react';
 import { getStaff,deleteStaff } from './apiStaffCalls'
 
@@ -24,9 +24,10 @@ const StaffDetail = () => {
   // get id from the URL and fetch the staff member from the server
   const { id } = useParams(); // get the id from the URL
 
-  
   // staff information state
   const [staff, setStaff] = useState(initialStaffState);
+
+  const updatePath = `/admin/staff/${id}/update`;
   
   useEffect(() => {
     getStaff(id).then((data) => {
@@ -34,7 +35,7 @@ const StaffDetail = () => {
     });
   }, [id]); // will depend on the id from the URL
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     console.log("Delete action for staff" + id);
     // send request to the server to delete the staff
     try{
@@ -85,8 +86,8 @@ const StaffDetail = () => {
         </div>
       </div>
       <div className="flex justify-end mt-4 space-x-2">
-        <button onClick={() => console.log('Update')} className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded">Update</button>
-        <button onClick={() => handleDelete(id)} className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">Delete</button>
+        <Link to={updatePath} className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded">Update</Link>
+        <button onClick={handleDelete} className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">Delete</button>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { deleteItem } from './apiInvCalls';
 
-const ItemCard = ({item}) => {
+const ItemCard = ({item, onDelete}) => {
     
     const {
         _id,
@@ -15,20 +15,25 @@ const ItemCard = ({item}) => {
 
 
     const detailsPath = `/admin/inventory/${_id}`;
+    const updatePath = `/admin/inventory/${_id}/update`;
 
-    const handleUpdate = () => console.log("Update action for", product);
 
-    const handleDelete = async (id) => {
-        const response = await deleteItem(id);
-        if (response.status === 200) {
-            console.log("Item deleted successfully");
-        } else {
-            console.log("There was an error deleting the item");
+    const handleDelete = async () => {
+      try{
+        const response = await deleteItem(_id);
+        if (response.ok) {
+          console.log(`Calling onDelete for ${_id}`);
+          onDelete(_id);
+        }else{
+          console.error("There was an error deleting the item");
         }
+      }catch(error){
+          console.error("There was an error deleting the item", error);
+      }
     };
 
     return (
-      <div className="bg-white p-4 rounded-lg shadow-lg flex flex-col md:flex-row items-start gap-4 mb-4">
+      <div className="bg-white p-4 rounded-lg shadow-lg flex flex-col md:flex-row items-start gap-4 mb-4 my-4">
         <img
           src={image || "default-inventory-image.jpg"} // Fallback to a default image if `imageUrl` is null
           alt={product}
@@ -56,12 +61,12 @@ const ItemCard = ({item}) => {
           </div>
         </div>
         <div className="flex flex-col p-4 gap-2">
-          <button
-            onClick={handleUpdate}
+          <Link
+            to={updatePath}
             className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded transition duration-300"
           >
             Update
-          </button>
+          </Link>
           <button
             onClick={handleDelete}
             className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition duration-300"

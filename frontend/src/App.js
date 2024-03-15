@@ -22,10 +22,12 @@ import AdminHome from './components/admin/HomePage'; // parent component for adm
 import AdminStaffView from './components/admin/Staff/Staff'; // parent component for staff view section
 import AdminStaffAdd from './components/admin/Staff/AddNewStaff'; // parent component for staff add section
 import AdminStaffDetails from './components/admin/Staff/StaffDetail'; // parent component for staff info section
+import AdminStaffUpdate from './components/admin/Staff/UpdateStaff'; // parent component for staff update section
 // - INVENTORY
 import AdminInventoryView from './components/admin/Inventory/Inventory'; // parent component for inventory view section
 import AdminInventoryAdd from './components/admin/Inventory/AddNewItem'; // parent component for inventory add section
 import AdminInventoryDetails from './components/admin/Inventory/ItemDetail'; // parent component for inventory info section
+import AdminInventoryItemUpdate from './components/admin/Inventory/UpdateItem'; // parent component for inventory update section
 
 
 function App() {
@@ -78,6 +80,14 @@ function App() {
             }
           />
 
+          <Route path="/admin/staff/:id/update"
+            element={
+              <ProtectedRoute>
+                <AdminStaffUpdate />
+              </ProtectedRoute>
+            }
+          />
+
           <Route path="/admin/inventory"
             element={
               <ProtectedRoute>
@@ -98,6 +108,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <AdminInventoryDetails />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/admin/inventory/:id/update"
+            element={
+              <ProtectedRoute>
+                <AdminInventoryItemUpdate />
               </ProtectedRoute>
             }
           />
