@@ -31,30 +31,33 @@ const StaffProfileCard = ({staff, onDelete}) => {
   
     return (
       <div className="flex justify-between items-center bg-white rounded-lg shadow-md overflow-hidden my-4">
-        <img
-          src={personalDetails.photo || 'default-profile.jpg'} // Replace 'default-profile.jpg' with the path to a default image
-          alt={`${staffInformation.name} ${staffInformation.surname}`}
-          className="w-32 h-32 rounded-full object-cover"
-          style={{ flex: '0 0 auto' }} // Fixed size for image, doesn't grow or shrink
-        />
-        <div className="flex-grow p-4">
-          <h3 className="text-lg font-semibold">{`${staffInformation.name} ${staffInformation.surname}`}</h3>
-          <p className="text-sm">{staffInformation.position}</p>
-          <p className="text-sm">{contactDetails.email}</p>
-          <p className="text-sm">{`${address.street}, ${address.city}, ${address.province}, ${address.zipCode}, ${address.country}`}</p>
-          <div className="text-sm mt-2">
-            <p>{`Qualifications: ${personalDetails.qualifications}`}</p>
-            <p>{`Specialization: ${personalDetails.specialization}`}</p>
+        <div className="border-2 m-5">
+          <img
+            src={personalDetails.photo || 'default-profile.jpg'} // Replace 'default-profile.jpg' with the path to a default image
+            alt={`${staffInformation.name} ${staffInformation.surname}`}
+            className="w-32 h-32 rounded-full object-cover"
+            style={{ flex: '0 0 auto' }} // Fixed size for image, doesn't grow or shrink
+          />
+        </div>
+        
+        <div className="flex-grow p-4 mt-5">
+          <h3 className="text-xl font-semibold mb-5">{`${staffInformation.name} ${staffInformation.surname}`}</h3>
+          <p className="text-md">{staffInformation.position}</p>
+          <p className="text-md">{contactDetails.email}</p>
+          <p className="text-md">{`${address.street}, ${address.city}, ${address.province}, ${address.zipCode}, ${address.country}`}</p>
+          <div className="text-sm mt-5">
+            <p> <b>Qualifications:</b> {`${personalDetails.qualifications}`} </p>
+            <p> <b>Specialization:</b> {` ${personalDetails.specialization}`} </p>
           </div>
         </div>
-        <div className="flex flex-col p-4">
-          <Link to={updatePath} className="bg-green-300 hover:bg-green-400 text-white py-2 px-4 rounded text-center">
+        <div className="flex flex-col p-10 gap-2">
+          <Link to={updatePath} className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded text-center transition duration-300">
             Update
           </Link>
-          <button onClick={handleDelete} className="bg-red-300 hover:bg-red-400 text-white py-2 px-4 rounded text-center">
+          <button onClick={handleDelete} className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded text-center transition duration-300">
             Delete
           </button>
-          <Link to={detailsPath} className="bg-blue-300 hover:bg-blue-400 text-white py-2 px-4 rounded mt-2 text-center">
+          <Link to={detailsPath} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center transition duration-300">
             Details
           </Link>
         </div>

@@ -33,34 +33,36 @@ const ItemCard = ({item, onDelete}) => {
     };
 
     return (
-      <div className="bg-white p-4 rounded-lg shadow-lg flex flex-col md:flex-row items-start gap-4 mb-4 my-4">
-        <img
-          src={image || "default-inventory-image.jpg"} // Fallback to a default image if `imageUrl` is null
-          alt={product}
-          className="w-32 h-32 md:w-48 md:h-48 object-cover rounded-lg"
-        />
+      <div className="bg-white p-4 rounded-lg shadow-lg flex flex-col md:flex-row items-start gap-4 mb-9 my-4">
+        <div className="border-2">
+          <img
+            src={image || "default-inventory-image.jpg"} // Fallback to a default image if `imageUrl` is null
+            alt={product}
+            className="w-40 h-40 md:w-48 md:h-48 object-cover rounded-lg"
+          />
+        </div>
         <div className="flex-grow">
-          <h3 className="text-xl font-bold mb-2">Product Name: {product}</h3>
-          <div className="mb-2">
+          <h3 className="text-xl font-bold mb-5">Product Name: {product}</h3>
+          <div className="mb-5">
             <h4 className="font-semibold">Product Features:</h4>
             <ul className="list-disc list-inside">
               {productFeatures.split(",").map((feature,index) => (
-                <li key={index}>
+                <li key={index} className='list-none'>
                   {feature}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="mb-2">
+          <div className="mb-5">
             <h4 className="font-semibold">Key Features:</h4>
-            <li>{keyFeatures}</li>
+            <li className='list-none'>{keyFeatures}</li>
           </div>
           <div>
             <h4 className="font-semibold">Description:</h4>
             <p>{description}</p>
           </div>
         </div>
-        <div className="flex flex-col p-4 gap-2">
+        <div className="mt-8 flex flex-col p-4 gap-2">
           <Link
             to={updatePath}
             className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded transition duration-300"

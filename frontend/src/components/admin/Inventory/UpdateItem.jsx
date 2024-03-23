@@ -101,6 +101,11 @@ const UpdateItem = () => {
     }
   };
 
+  const handleCancel = () => {
+    setItem({ ...initialItemState });
+    navigate('/admin/inventory'); // Redirect to inventory list or another appropriate route
+  }
+
   return (
     <div className="container mx-auto p-5">
       <form
@@ -262,12 +267,21 @@ const UpdateItem = () => {
             required
           />
         </div>
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Add New Inventory
-        </button>
+        <div className="flex justify-end gap-4 mt-4">
+      <button
+        onClick={handleCancel}
+        type="button"
+        className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+      >
+        Update new item
+      </button>
+    </div>
       </form>
     </div>
   );

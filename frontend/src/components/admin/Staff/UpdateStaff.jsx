@@ -89,6 +89,11 @@ const UpdateStaffForm = () => {
     }
   };
 
+  const handleCancel = () => {
+    setStaff({ ...initialStaffState });
+    navigate('/admin/staff');
+  }
+
 
   return (
     <>
@@ -148,9 +153,21 @@ const UpdateStaffForm = () => {
               <input type="text" name="personalDetails.hobbies" value={staff.personalDetails.hobbies} onChange={handleChange} placeholder="Hobbies/Interests" className="form-input px-4 py-2 rounded" required />
             </div>
             
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Add New Staff
-            </button>
+            <div className="flex justify-end gap-4 mt-4">
+              <button
+                onClick={handleCancel}
+                type="button"
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+              >
+                Update Staff
+              </button>
+            </div>
           </form>
         </div>
       </div>
