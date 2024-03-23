@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../../user/images/myDentLogo.png";
+import Logo from "./myDentLogo.png";
 import { useState } from "react";
 
 
@@ -7,6 +7,7 @@ const AdminLogin = () => {
 
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
+const [authError, setAuthError] = useState(false);
 const navigate = useNavigate();
 
 const handleLogin = async (e) => {
@@ -23,11 +24,12 @@ const handleLogin = async (e) => {
       })
     });
     
-    if(response){
+    if(response.ok){
       const data = await response.json();
-      console.log(data);
       localStorage.setItem('token', data.token);
       navigate("/admin/home");
+    }else{
+      setAuthError(true);
     }
 
   }catch(err){
@@ -118,6 +120,13 @@ const handleLogin = async (e) => {
                 Sign in
               </button>
             </div>
+          </div>
+          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+              {authError && (
+                <div className="text-center text-sm font-medium text-red-600">
+                  Incorrect username or password.
+                </div>
+              )}
           </div>
         </form>
       </div>
