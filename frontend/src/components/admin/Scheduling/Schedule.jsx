@@ -3,7 +3,7 @@ const { useState } = require("react");
 // ScheduleItem
 const ScheduleItem = ({ time, title, description }) => {
   return (
-    <div className="border-b pb-4 border-gray-400 border-dashed">
+    <div className="border-b pb-4 border-gray-400 border-dashed mt-5">
       <p className="text-xs font-light leading-3 text-gray-500 dark:text-gray-300">
         {time}
       </p>
@@ -22,7 +22,7 @@ const ScheduleItem = ({ time, title, description }) => {
 
 // Schedule.js
 const Schedule = ({schedule ,day}) => {
-  
+
   const [weekDays] = useState(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]);
   const [months] = useState([
     "January","February",

@@ -36,7 +36,7 @@ const Home = () => {
                   <Link to="/admin/schedule" className="bg-teal-300 text-white font-semibold py-2 px-4 rounded">
                     Manage
                   </Link>
-                  <span className="ml-4 text-lg font-medium">Working Schedule</span>
+                  <span className="ml-4 text-lg font-medium">Patient Schedule</span>
                 </div>
               </div>
             </div>

@@ -51,11 +51,10 @@ const CalendarDay = ({ day , month, year, onDayClick, isSelected}) => {
 
   // current Day class
   const dayClass = isToday ? "bg-blue-500 text-white font-semibold" : "hover:bg-blue-200 hover:text-blue-800";
-  const selectedClass = isSelected ? "bg-gray-400 text-white" : "";
 
   return (
     <div className="pt-6">
-      <div className={`px-2 py-2 cursor-pointer flex w-full justify-center ${dayClass} ${selectedClass}`} onClick={() => handleClick(day)}>
+      <div className={`px-2 py-2 cursor-pointer flex w-full justify-center ${dayClass}`} onClick={() => handleClick(day)}>
         <div className="text-center">
           {day}
         </div>

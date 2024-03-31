@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import NavBar from "../Shared/Navbar";
 import { Calendar } from "./Calendar";
 import { Schedule } from "./Schedule";
 
 const Scheduling = () => {
 
-    const [selectedDay, setSelectedDay] = useState(null);
+    const [selectedDay, setSelectedDay] = useState(new Date());
     const [daySchedule, setDaySchedule] = useState(null);
+    // automatically  get today sechedule
 
     // This function is called when a day is clicked in the calendar
     const onDayClick = (day) => {
@@ -17,21 +18,25 @@ const Scheduling = () => {
         setDaySchedule(daySchedule);
     };
 
+    useEffect(() => {
+        setDaySchedule(fetchScheduleForDay(new Date()));
+    }, []);
+
     // You would fetch and store your schedule data here
     const fetchScheduleForDay = (day) => {
         // Logic to fetch schedule for the selected day
         return {
-        time: "09:00 AM",
-        title: "Example meeting",
-        description: "Example description",
-        };
+            time: "09:00 AM",
+            title: "Example meeting",
+            description: "Example description",
+            };
     };
 
     return (
         <div className="min-h-screen bg-gray-100">
             <NavBar />
             <div className="container mx-auto mt-8 w-full">
-                <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-">
                     <Calendar onDayClick={onDayClick} selectedDay={selectedDay}/>
                     {daySchedule && <Schedule schedule={daySchedule} day={selectedDay}/>}
                 </div>
