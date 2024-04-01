@@ -9,7 +9,7 @@ const staffRouter = require("./routes/staffRoute");
 const inventoryRouter = require("./routes/inventoryRoute");
 const authRouter = require("./routes/authRoute"); 
 const globalErrorHandler = require('./controllers/errorController');
-const workScheduleRouter = require('./routes/workScheduleRoute');
+const bookingRouter = require("./routes/bookingRoute")
 
 
 
@@ -20,7 +20,6 @@ const app = express();
 app.use(cors());
 
 // Body parsers
-app.use('/api/v1', workScheduleRouter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(globalErrorHandler);
@@ -32,6 +31,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/staff", staffRouter);
 app.use("/api/v1/inventory", inventoryRouter);
 app.use("/api/v1/auth", authRouter); // Use the auth routes
+app.use("/api/v1/bookings", bookingRouter);
 
 // Catch-all route for unhandled routes
 app.all("*", (req, res, next) => {
