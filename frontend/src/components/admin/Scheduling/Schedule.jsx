@@ -33,7 +33,7 @@ const Schedule = ({schedule ,day}) => {
   ]);
 
   return (
-    <div className="md:py-8 py-5 md:px-16 px-5 dark:bg-gray-700 bg-gray-50 rounded-b">
+    <div className="md:py-8 py-5 md:px-16 px-5 dark:bg-blue-600 bg-gray-50 rounded-b">
       <div className="px-4">
         <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
           Schedule for {weekDays[day.getDay()]}, {months[day.getMonth()]} {day.getDate()}

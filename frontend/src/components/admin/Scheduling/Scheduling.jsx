@@ -12,10 +12,10 @@ const Scheduling = () => {
     // This function is called when a day is clicked in the calendar
     const onDayClick = (day) => {
         // Assuming you store your schedule in a state or come from a database/API
-        const daySchedule = fetchScheduleForDay(day); // Replace with your actual logic
+        const selectedDaySchedule = fetchScheduleForDay(day); // Replace with your actual logic
         console.log(daySchedule);
         setSelectedDay(day);
-        setDaySchedule(daySchedule);
+        setDaySchedule(selectedDaySchedule);
     };
 
     useEffect(() => {
@@ -33,12 +33,14 @@ const Scheduling = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-gray-100 ">
             <NavBar />
-            <div className="container mx-auto mt-8 w-full">
-                <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-">
-                    <Calendar onDayClick={onDayClick} selectedDay={selectedDay}/>
-                    {daySchedule && <Schedule schedule={daySchedule} day={selectedDay}/>}
+            <div className="flex items-center min-h-[calc(100vh-175px)] justify-center">
+                <div className="container mx-auto px-4 py-0">
+                    <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <Calendar onDayClick={onDayClick} selectedDay={selectedDay} />
+                        {daySchedule && <Schedule schedule={daySchedule} day={selectedDay} />}
+                    </div>
                 </div>
             </div>
         </div>
