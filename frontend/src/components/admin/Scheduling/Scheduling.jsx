@@ -2,35 +2,48 @@ import { useState , useEffect } from "react";
 import NavBar from "../Shared/Navbar";
 import { Calendar } from "./Calendar";
 import { Schedule } from "./Schedule";
+import { getAllBooking } from "./apiBookingCalls";
 
 const Scheduling = () => {
 
     const [selectedDay, setSelectedDay] = useState(new Date());
-    const [daySchedule, setDaySchedule] = useState(null);
+    const [daySchedule, setDaySchedule] = useState([]);
     // automatically  get today sechedule
 
     // This function is called when a day is clicked in the calendar
     const onDayClick = (day) => {
-        // Assuming you store your schedule in a state or come from a database/API
-        const selectedDaySchedule = fetchScheduleForDay(day); // Replace with your actual logic
-        console.log(daySchedule);
         setSelectedDay(day);
-        setDaySchedule(selectedDaySchedule);
+        fetchScheduleForDay(day);
     };
 
     useEffect(() => {
-        setDaySchedule(fetchScheduleForDay(new Date()));
-    }, []);
+        fetchScheduleForDay(selectedDay);
+    }, [selectedDay]);
 
     // You would fetch and store your schedule data here
-    const fetchScheduleForDay = (day) => {
-        // Logic to fetch schedule for the selected day
-        return {
-            time: "09:00 AM",
-            title: "Example meeting",
-            description: "Example description",
-            };
+    const fetchScheduleForDay = async (day) => {
+        // setLoading(true);
+        try {
+            const bookings = await getAllBooking();
+            const selectedDayBookings = bookings.filter((booking) => {
+                const bookingDate = new Date(booking.dateOfService);
+                const selectedDate = new Date(day);
+                return (
+                    bookingDate.getFullYear() === selectedDate.getFullYear() &&
+                    bookingDate.getMonth() === selectedDate.getMonth() &&
+                    bookingDate.getDate() === selectedDate.getDate()
+                );
+            });
+            
+            setDaySchedule(selectedDayBookings);
+            // setLoading(false);
+        } catch (error) {
+            console.error("Error fetching schedule:", error);
+            // setError("Error fetching schedule. Please try again later.");
+            // setLoading(false);
+        }
     };
+    
 
     return (
         <div className="min-h-screen bg-gray-100 ">
