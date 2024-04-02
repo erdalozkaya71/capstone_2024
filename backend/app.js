@@ -9,6 +9,10 @@ const staffRouter = require("./routes/staffRoute");
 const inventoryRouter = require("./routes/inventoryRoute");
 const authRouter = require("./routes/authRoute"); 
 const globalErrorHandler = require('./controllers/errorController');
+const bookingRouter = require("./routes/bookingRoute")
+
+
+
 
 const app = express();
 
@@ -27,6 +31,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/staff", staffRouter);
 app.use("/api/v1/inventory", inventoryRouter);
 app.use("/api/v1/auth", authRouter); // Use the auth routes
+app.use("/api/v1/bookings", bookingRouter);
 
 // Catch-all route for unhandled routes
 app.all("*", (req, res, next) => {

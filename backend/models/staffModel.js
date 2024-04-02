@@ -48,7 +48,13 @@ const staffSchema = new mongoose.Schema({
     licence: { type: String },
     dateOfBirth: { type: Date, required: false },
     gender: { type: String, required: false },
-    workschedule: { type: String },
+    workschedule: {
+      scheduleType: { type: String, enum: ["Part-time", "Full-time"] },
+      workDays: {
+        type: [String],
+        enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      }
+    },
     hobbies: { type: String },
     photo: { type: String },
   },
