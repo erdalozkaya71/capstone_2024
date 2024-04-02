@@ -57,6 +57,8 @@ const AddNewStaffForm = () => {
     const response = await createStaff(staff);
     const data = await response.json();
 
+    console.log(staff)
+
     if (response.ok) {
       alert('Staff member added successfully');
       navigate('/admin/staff');
@@ -121,7 +123,13 @@ const AddNewStaffForm = () => {
               {/* Personal Details */}
               <input type="date" name="personalDetails.dateOfBirth" value={staff.personalDetails.dateOfBirth} onChange={handleChange} placeholder="Date of Birth" className="form-input px-4 py-2 rounded" required />
               <input type="text" name="personalDetails.gender" value={staff.personalDetails.gender} onChange={handleChange} placeholder="Gender" className="form-input px-4 py-2 rounded" required />
-              <input type="text" name="personalDetails.workschedule" value={staff.personalDetails.workschedule} onChange={handleChange} placeholder="Working Schedule" className="form-input px-4 py-2 rounded" required />
+
+              <select name="personalDetails.workschedule" value={staff.personalDetails.workschedule} onChange={handleChange} className="form-select px-4 py-2 rounded" required>
+                <option disabled value="">Work Schedule</option>
+                <option>Part-time</option>
+                <option>Full-time</option>
+              </select>
+
               <input type="text" name="personalDetails.hobbies" value={staff.personalDetails.hobbies} onChange={handleChange} placeholder="Hobbies/Interests" className="form-input px-4 py-2 rounded" required />
             </div>
             

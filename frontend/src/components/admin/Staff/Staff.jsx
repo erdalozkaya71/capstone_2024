@@ -10,7 +10,7 @@ const Staff = () => {
       <NavBar />
       <div className="container mx-auto mt-8 w-full flex justify-start items-center ">
         <Link
-          to="/admin/staff/create"
+          to="/admin/staff/new"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Add New Staff

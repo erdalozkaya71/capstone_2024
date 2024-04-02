@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addItem } from './apiInvCalls'; // Uncomment and set the correct import path
+import { Link } from "react-router-dom";
 
 const initialItemState = {
     product: "",
@@ -82,6 +83,11 @@ const AddInventoryItem = () => {
         onSubmit={handleSubmit}
         className="bg-gray-100 p-6 rounded shadow-md"
       >
+        <div className="mb-6">
+          <Link to="/admin/inventory" className="text-blue-500 hover:text-blue-700">
+            <i className="fas fa-arrow-left mr-2"></i>Back
+          </Link>
+        </div>
         <h2 className="text-2xl font-semibold mb-6">Add New Inventory Item</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <input
