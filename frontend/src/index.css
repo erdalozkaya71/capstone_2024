@@ -1,6 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Chicle&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chicle&family=Dokdo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Life+Savers:wght@400;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font-chicle {
+  font-family: 'Chicle', cursive; /* Apply the specific font */
+}
+
+.dokdo-regular {
+  font-family: "Dokdo", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.life-savers-bold {
+  font-family: "Life Savers", serif;
+  font-style: normal;
+}
 
 body {
   margin: 0;
