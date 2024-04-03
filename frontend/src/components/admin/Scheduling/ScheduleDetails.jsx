@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams , Link} from 'react-router-dom';
+import { useParams , Link, useNavigate} from 'react-router-dom';
 import { getBooking } from "./apiBookingCalls"
 
 const initialScheduleState = {
@@ -17,6 +17,7 @@ const initialScheduleState = {
 const ScheduleDetails = () => {
   const { id } = useParams(); // Get the schedule ID from the URL params
   const [schedule, setSchedule] = useState({ ...initialScheduleState});
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch the schedule details when the component mounts
@@ -32,42 +33,50 @@ const ScheduleDetails = () => {
     fetchSchedule();
   }, []);
 
-  const handleUpdate = () => {
-    // Handle update functionality here
-    console.log("Update schedule:", schedule);
-  }
-
   const handleDelete = () => {
     // Handle delete functionality here
     console.log("Delete schedule:", schedule);
   }
 
+  const goBack = () => {
+    navigate("/admin/schedule");
+  }
+
+
   return (
-    <div className="flex items-center justify-center">
-    <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 py-6">
-      <h1 className="text-2xl font-bold mb-4">Schedule Details</h1>
-      <p className="text-lg mb-2">Service: {schedule.serviceType}</p>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h1 className="text-3xl font-bold text-center mb-4">Schedule Details</h1>
+        <div className="mb-6 p-4 bg-blue-100 rounded">
+          <p className="text-xl mb-2">Service: <span className="font-semibold">{schedule.serviceType}</span></p>
+          <p className="text-xl mb-2">Time: <span className="font-semibold">{new Date(schedule.dateOfService).toLocaleTimeString()}</span></p>
+          <p className="text-xl mb-2">Date: <span className="font-semibold">{new Date(schedule.dateOfService).toDateString()}</span></p>
+          <p className="text-xl mb-2">Client Phone Number: <span className="font-semibold">{schedule.phoneNumber}</span></p>
+          <p className="text-xl">Client Email: <span className="font-semibold">{schedule.email}</span></p>
+        </div>
 
-      <p className="text-lg mb-2">Time: {new Date(schedule.dateOfService).toLocaleTimeString()}</p>
-      <p className="text-lg mb-2">Date: {new Date(schedule.dateOfService).toDateString()}</p>
-      <p className="text-lg mb-2">Client Phone Number: {schedule.phoneNumber}</p>
-      <p className="text-lg mb-2">Client Email: {schedule.email}</p>
+        <div className="flex justify-center gap-4 mb-4">
+          <Link
+            to={`/admin/schedule/${id}/update`}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300"
+          >
+            Update
+          </Link>
+          <button
+            onClick={handleDelete}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300"
+          >
+            Delete
+          </button>
+        </div>
 
-      <div className="mt-6">
-        <Link
-          to={`/admin/schedule/${id}/update`}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-4 rounded"
+        <button
+          onClick={goBack}
+          className="text-gray-500 hover:text-gray-700 transition duration-300"
         >
-          Update
-        </Link>
-        <Link
-          onClick={handleDelete}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Delete
-        </Link>
+          ← Back to Schedule List
+        </button>
       </div>
-    </div>
     </div>
   );
 };
