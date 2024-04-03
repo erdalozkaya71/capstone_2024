@@ -1,0 +1,27 @@
+{
+  "name": "capstone_2024",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install:modules": "cd frontend && npm install && cd .. && cd backend && npm install && cd ..",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:frontend": "cd frontend && npm start",
+    "start:backend": "cd backend && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erdalozkaya71/capstone_2024.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erdalozkaya71/capstone_2024/issues"
+  },
+  "homepage": "https://github.com/erdalozkaya71/capstone_2024#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
