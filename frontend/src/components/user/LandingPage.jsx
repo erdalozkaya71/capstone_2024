@@ -21,6 +21,39 @@ import DrMostafaImage from './images/landingPage/docMostafa.png';
 import '../../index.css';
 import { Card } from "react-bootstrap";
 
+const handleFormSubmit = async (event) => {
+    event.preventDefault(); // Prevent the default form submission
+
+    const formData = {
+        name: event.target.name.value,
+        email: event.target.email.value,
+        phoneNumber: event.target.phoneNumber.value,
+        date: event.target.date.value,
+        service: event.target.service.value,
+        message: event.target.message.value,
+    };
+
+    try {
+        const response = await fetch('/api/v1/bookings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+            throw new Error('Something went wrong with the booking request');
+        }
+
+        const result = await response.json();
+        alert('Booking successful!'); // You can replace this with a more sophisticated feedback mechanism
+        console.log(result);
+    } catch (error) {
+        console.error('Failed to book appointment:', error);
+        alert('Failed to book appointment.');
+    }
+};
 
 const LandingPage = () => {
     useEffect(() => {
@@ -379,7 +412,8 @@ const LandingPage = () => {
                                         </li>
                                     </ul>
                                 </div>
-                                <form>
+                                <form onSubmit={handleFormSubmit}>
+
                                     <div className="lg:col-span-2">
                                         <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                                             <div className="md:col-span-5">
