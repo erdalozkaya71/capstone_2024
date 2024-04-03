@@ -1,21 +1,32 @@
-const { useState } = require("react");
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
 
 // ScheduleItem
-const ScheduleItem = ({ time, service, client }) => {
+const ScheduleItem = ({bookingID, time, service, client }) => {
+
+  const viewLink = `/admin/schedule/${bookingID}`;
+  const formattedTime = new Date(time).toLocaleTimeString();
+
   return (
     <div className="border-b pb-4 border-gray-400 border-dashed mt-5">
-      <p className="text-xs font-light leading-3 text-gray-500 dark:text-gray-300">
-        {time}
-      </p>
-      <p
-        tabIndex="0"
-        className="focus:outline-none text-lg font-medium leading-5 text-gray-800 dark:text-gray-100 mt-2"
+      <Link
+        to={viewLink}
+        className="flex flex-col justify-between items-center mt-5"
       >
-        {service}
-      </p>
-      <p className="text-sm pt-2 leading-none text-gray-600 dark:text-gray-300">
-        {client}
-      </p>
+        <p className="text-xs font-light leading-3 text-gray-500 dark:text-gray-300">
+          {formattedTime}
+        </p>
+        <p
+          tabIndex="0"
+          className="focus:outline-none text-lg font-medium leading-5 text-gray-800 dark:text-gray-100 mt-2"
+        >
+          {service}
+        </p>
+        <p className="text-sm pt-2 leading-none text-gray-600 dark:text-gray-300">
+          {client}
+        </p>
+      </Link>
     </div>
   );
 };
@@ -45,6 +56,7 @@ const Schedule = ({schedule ,day}) => {
           schedule.map((booking, index) => (
             <ScheduleItem
               key={index}
+              bookingID = {booking._id}
               time={booking.dateOfService} // Assuming dateOfService contains time
               service={booking.serviceType}
               client={booking.name}

@@ -30,6 +30,8 @@ import AdminInventoryDetails from './components/admin/Inventory/ItemDetail'; // 
 import AdminInventoryItemUpdate from './components/admin/Inventory/UpdateItem'; // parent component for inventory update section
 // - SCHEDULING
 import Scheduling from './components/admin/Scheduling/Scheduling'; // parent component for scheduling section
+import ScheduleDetails from './components/admin/Scheduling/ScheduleDetails';
+import ScheduleUpdate from './components/admin/Scheduling/UpdateSchedule';
 
 
 function App() {
@@ -126,6 +128,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <Scheduling />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route path="/admin/schedule/:id"
+            element={
+              <ProtectedRoute>
+                <ScheduleDetails />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/admin/schedule/:id/update"
+            element={
+              <ProtectedRoute>
+                <ScheduleUpdate />
               </ProtectedRoute>
             }
           />
