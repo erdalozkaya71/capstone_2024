@@ -1,5 +1,7 @@
 const API_BASE_URL = "http://localhost:3000/api/v1";
-const USER_TOKEN = localStorage.getItem('token');
+
+// Function to get the current user token
+const getUserToken = () => localStorage.getItem('token');
 
 const addItem = async (inventoryData) => {
     try {
@@ -7,7 +9,7 @@ const addItem = async (inventoryData) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${USER_TOKEN}`, // Make sure to handle token storage securely
+                "Authorization": `Bearer ${getUserToken()}`, // Get the most current token
             },
             body: JSON.stringify(inventoryData),
         });
@@ -20,12 +22,11 @@ const addItem = async (inventoryData) => {
 };
 
 const getAllInventory = async () => {
-    // fetch current inventory with ID from the server
     try {
         const response = await fetch(`${API_BASE_URL}/inventory`, {
             method: 'GET',
             headers: {
-                "Authorization": `Bearer ${USER_TOKEN}`, // Include the JWT token in the 'Authorization' header
+                "Authorization": `Bearer ${getUserToken()}`, // Get the most current token
             }
         });
         
@@ -41,12 +42,11 @@ const getAllInventory = async () => {
 };
 
 const getItem = async (id) => {
-    // fetch current inventory with ID from the server
     try {
-        const response = await fetch(`http://localhost:3000/api/v1/inventory/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/inventory/${id}`, {
             method: 'GET',
             headers: {
-                "Authorization": `Bearer ${USER_TOKEN}`,
+                "Authorization": `Bearer ${getUserToken()}`, // Get the most current token
             }
         });
        
@@ -66,7 +66,7 @@ const updateItem = async (id, inventoryData) => {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${USER_TOKEN}`,
+                Authorization: `Bearer ${getUserToken()}`, // Get the most current token
             },
             body: JSON.stringify(inventoryData),
         });
@@ -82,7 +82,7 @@ const deleteItem = async (id) => {
         const response = await fetch(`${API_BASE_URL}/inventory/${id}`, {
             method: "DELETE",
             headers: {
-                Authorization: `Bearer ${USER_TOKEN}`,
+                Authorization: `Bearer ${getUserToken()}`, // Get the most current token
             },
         });
 

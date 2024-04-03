@@ -1,6 +1,6 @@
-// api/staff.js
 const API_BASE_URL = "http://localhost:3000/api/v1";
-const USER_TOKEN = localStorage.getItem('token');
+
+const getToken = () => localStorage.getItem('token');
 
 const createStaff = async (staffData) => {
   try {
@@ -8,7 +8,7 @@ const createStaff = async (staffData) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${USER_TOKEN}`, // Make sure to handle token storage securely
+        Authorization: `Bearer ${getToken()}`, // Retrieve token at the time of API call
       },
       body: JSON.stringify(staffData),
     });
@@ -20,79 +20,74 @@ const createStaff = async (staffData) => {
 };
 
 const getAllStaff = async () => {
-  // fetch current staff with ID from the server
-  try{
-    const response = await fetch(`${API_BASE_URL}/staff`,{
+  try {
+    const response = await fetch(`${API_BASE_URL}/staff`, {
       method: 'GET',
       headers: {
-        "Authorization": `Bearer ${USER_TOKEN}`, // Include the JWT token in the 'Authorization' header
-      }
+        "Authorization": `Bearer ${getToken()}`, // Retrieve token at the time of API call
+      },
     });
     
-    if(response.ok){
+    if(response.ok) {
       const data = await response.json();
       const staffData = data.data.data;
       return staffData;
     }
-
-  }catch(error){
+  } catch(error) {
     console.log(error);
   }
 };
 
 const getStaff = async (id) => {
-    // fetch current staff with ID from the server
-    try{
-        const response = await fetch(`http://localhost:3000/api/v1/staff/${id}`,{
-          method: 'GET',
-          headers: {
-            "Authorization": `Bearer ${USER_TOKEN}`, 
-          }
-        });
-        
-        if(response.ok){
-          const data = await response.json();
-          const staffData = data.data.data;
-          return staffData;
-        }
-      }catch(error){
-        console.error('Error:', error);
+  try {
+    const response = await fetch(`${API_BASE_URL}/staff/${id}`, {
+      method: 'GET',
+      headers: {
+        "Authorization": `Bearer ${getToken()}`, // Retrieve token at the time of API call
+      },
+    });
+    
+    if(response.ok) {
+      const data = await response.json();
+      const staffData = data.data.data;
+      return staffData;
     }
+  } catch(error) {
+    console.error('Error:', error);
+  }
 };
 
 const updateStaff = async (id, staffData) => {
-    try {
-        const response = await fetch(`${API_BASE_URL}/staff/${id}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${USER_TOKEN}`,
-        },
-        body: JSON.stringify(staffData),
-        });
-    
-        return response;
-    } catch (error) {
-        console.error("There was an error updating the staff member:", error);
-    }
+  try {
+    const response = await fetch(`${API_BASE_URL}/staff/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`, // Retrieve token at the time of API call
+      },
+      body: JSON.stringify(staffData),
+    });
+
+    return response;
+  } catch (error) {
+    console.error("There was an error updating the staff member:", error);
+  }
 };
 
 const deleteStaff = async (id) => {
-    try {
-        const response = await fetch(`${API_BASE_URL}/staff/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${USER_TOKEN}`,
-        }
-        });
-    
-        return response;
-    } catch (error) {
-        console.error("There was an error deleting the staff member:", error);
-    }
+  try {
+    const response = await fetch(`${API_BASE_URL}/staff/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`, // Retrieve token at the time of API call
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error("There was an error deleting the staff member:", error);
+  }
 }
 
-
-
-module.exports = { createStaff, getAllStaff, getStaff, updateStaff, deleteStaff};
+module.exports = { createStaff, getAllStaff, getStaff, updateStaff, deleteStaff };

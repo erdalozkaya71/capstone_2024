@@ -52,6 +52,12 @@ const handleLogin = async (e) => {
         </h2>
       </div>
 
+      <div className="mt-4 text-center">
+          <Link to="/" className="text-indigo-600 hover:text-indigo-500">
+            Back to Client Page
+          </Link>
+      </div>
+
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleLogin}>
           <div>

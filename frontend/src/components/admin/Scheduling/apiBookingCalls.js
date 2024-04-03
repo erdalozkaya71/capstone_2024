@@ -1,13 +1,15 @@
 const API_BASE_URL = "http://localhost:3000/api/v1";
-const USER_TOKEN = localStorage.getItem('token');
 
-//get all schedules
+// Function to get the current user token
+const getUserToken = () => localStorage.getItem('token');
+
+// Get all schedules
 const getAllBooking = async () => {
     const response = await fetch(`${API_BASE_URL}/bookings`, {
         method: "GET",
         headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${USER_TOKEN}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getUserToken()}`, // Get the most current token
         },
     });
 
@@ -15,16 +17,16 @@ const getAllBooking = async () => {
         const data = await response.json();
         return data.data.data;
     }
-    
+    // Consider handling non-ok responses as well
 };
 
-// get schedule with id
+// Get schedule with id
 const getBooking = async (id) => {
     const response = await fetch(`${API_BASE_URL}/bookings/${id}`, {
         method: "GET",
         headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${USER_TOKEN}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getUserToken()}`, // Get the most current token
         },
     });
 
@@ -32,15 +34,16 @@ const getBooking = async (id) => {
         const data = await response.json();
         return data.data.data;
     }
+    // Consider handling non-ok responses as well
 };
 
-// update
+// Update booking
 const updateBooking = async (id, updatedBooking) => {
     const response = await fetch(`${API_BASE_URL}/bookings/${id}`, {
         method: "PATCH",
         headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${USER_TOKEN}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getUserToken()}`, // Get the most current token
         },
         body: JSON.stringify(updatedBooking),
     });
@@ -48,25 +51,23 @@ const updateBooking = async (id, updatedBooking) => {
     if (response.ok) {
         return "Booking updated successfully";
     }
-}
+    // Consider handling non-ok responses as well
+};
 
-
-// delete
+// Delete booking
 const deleteBooking = async (id) => {
     const response = await fetch(`${API_BASE_URL}/bookings/${id}`, {
         method: "DELETE",
         headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${USER_TOKEN}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getUserToken()}`, // Get the most current token
         },
     });
 
     if (response.ok) {
         return "Booking deleted successfully";
     }
-}
+    // Consider handling non-ok responses as well
+};
 
-
-    
-module.exports = { getAllBooking, getBooking, updateBooking, deleteBooking};
-
+module.exports = { getAllBooking, getBooking, updateBooking, deleteBooking };
