@@ -1,42 +1,44 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Navbar from "../Shared/Navbar";
 import Footer from "../Shared/Footer";
+import { useNavigate } from 'react-router-dom';
+import { addBooking } from '../../admin/Scheduling/apiBookingCalls'
 
 const BookingPage = () => {
-    const handleFormSubmit = async (event) => {
-        event.preventDefault(); // Prevent the default form submission
-    
-        const formData = {
-            name: event.target.name.value,
-            email: event.target.email.value,
-            phoneNumber: event.target.phoneNumber.value,
-            date: event.target.date.value,
-            service: event.target.service.value,
-            message: event.target.message.value,
-        };
-    
+    const navigate = useNavigate();
+    const [booking, setBooking] = useState({}); // Initialize booking state
+
+    // Update state on input change
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setBooking(prev => ({ ...prev, [name]: value }));
+    };
+    // Handle form submit
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log('Submitted Booking:', booking);
+
+        const requiredFields = ['name', 'email', 'phoneNumber', 'dateOfService', 'serviceType'];
+        const missingFields = requiredFields.filter(field => !booking[field]);
+
+        if (missingFields.length > 0) {
+            const missingFieldsMessage = missingFields.join(', ');
+            alert(`Please fill out the following required fields: ${missingFieldsMessage}`);
+            return; // Stop form submission
+        }
+
         try {
-            const response = await fetch('/api/bookings', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-    
-            if (!response.ok) {
-                throw new Error('Something went wrong with the booking request');
-            }
-    
-            const result = await response.json();
-            alert('Booking successful!'); // You can replace this with a more sophisticated feedback mechanism
-            console.log(result);
+            await addBooking(booking); // Call addBooking function with booking data
+            alert("Booking added successfully");
+            navigate('/user/services');
         } catch (error) {
-            console.error('Failed to book appointment:', error);
-            alert('Failed to book appointment.');
+            console.error("Error adding booking:", error);
+            alert("Error adding booking");
         }
     };
-    
+
+
+
     const services = [
         "Crown and Bridge",
         "Teeth Whitening",
@@ -76,7 +78,7 @@ const BookingPage = () => {
                                         </li>
                                     </ul>
                                 </div>
-                                <form onSubmit={handleFormSubmit}>
+                                <form onSubmit={handleSubmit}>
                                     <div className="lg:col-span-2">
                                     <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                                             <div className="md:col-span-5">
@@ -86,6 +88,7 @@ const BookingPage = () => {
                                                     name="name"
                                                     placeholder="Full name"
                                                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                                    onChange={handleChange}
                                                 />
                                             </div>
                                             <div className="md:col-span-5">
@@ -94,7 +97,8 @@ const BookingPage = () => {
                                                     type="text"
                                                     name="email"
                                                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                                    placeholder="email@domain.com"/>
+                                                    placeholder="email@domain.com"
+                                                    onChange={handleChange}/>
                                             </div>
                                             <div className="md:col-span-5">
                                                 <label>Phone Number</label>
@@ -102,22 +106,25 @@ const BookingPage = () => {
                                                     type="tel"
                                                     name="phoneNumber"
                                                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                                    placeholder="647-555-5555"/>
+                                                    placeholder="647-555-5555"
+                                                    onChange={handleChange}/>
                                             </div>
                                         <div className="md:col-span-5">
                                             <label>Date</label>
                                             <input
                                                 type="date"
                                                 min={new Date().toISOString().split('T')[0]}  // Set min date to today
-                                                name="date"
+                                                name="dateOfService"
                                                 className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                                onChange={handleChange}
                                             />
                                         </div>
                                         <div className="md:col-span-5">
                                             <label>Service</label>
                                             <select
-                                                name="service"
+                                                name="serviceType"
                                                 className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                                onChange={handleChange}
                                                 >
                                                     {services.map((service, index) => (
                                                         <option key={index} value={service}>
@@ -132,6 +139,7 @@ const BookingPage = () => {
                                                     name="message"
                                                     placeholder="Include a message..."
                                                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                                    onChange={handleChange}
                                                 />
                                             </div>
                                             <div className="md:col-span-5">

@@ -3,6 +3,30 @@ const API_BASE_URL = "http://localhost:3000/api/v1";
 // Function to get the current user token
 const getUserToken = () => localStorage.getItem('token');
 
+// Add Booking
+const addBooking = async (bookingData) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/bookings`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(bookingData),
+        });
+
+        if (response.ok) {
+            return "Booking created successfully";
+        } else {
+            const errorMessage = await response.text();
+            throw new Error(`Failed to add booking: ${errorMessage}`);
+        }
+    }
+    catch (error) {
+        console.error("There was an error creating the booking:", error);
+        throw error; // rethrow the error for handling at higher levels
+    }
+};
+
 // Get all schedules
 const getAllBooking = async () => {
     const response = await fetch(`${API_BASE_URL}/bookings`, {
@@ -70,4 +94,4 @@ const deleteBooking = async (id) => {
     // Consider handling non-ok responses as well
 };
 
-module.exports = { getAllBooking, getBooking, updateBooking, deleteBooking };
+module.exports = { getAllBooking, getBooking, updateBooking, deleteBooking, addBooking };
