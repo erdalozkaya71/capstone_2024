@@ -3,15 +3,13 @@ import { useParams , Link, useNavigate} from 'react-router-dom';
 import { getBooking , deleteBooking} from "./apiBookingCalls"
 
 const initialScheduleState = {
-  _id: "",
-  createdAt: "",
   dateOfService: "",
   email: "",
   message: "",
   name: "",
   phoneNumber: "",
   serviceType: "",
-  updatedAt: ""
+  timeSlot: "",
 };
 
 const ScheduleDetails = () => {
@@ -50,10 +48,14 @@ const ScheduleDetails = () => {
         <h1 className="text-3xl font-bold text-center mb-4">Schedule Details</h1>
         <div className="mb-6 p-4 bg-blue-100 rounded">
           <p className="text-xl mb-2">Service Type: <span className="font-semibold">{schedule.serviceType}</span></p>
-          <p className="text-xl mb-2">Time: <span className="font-semibold">{new Date(schedule.dateOfService).toLocaleTimeString()}</span></p>
+          <p className="text-xl mb-2">Time: <span className="font-semibold">{schedule.timeSlot}</span></p>
           <p className="text-xl mb-2">Date: <span className="font-semibold">{new Date(schedule.dateOfService).toDateString()}</span></p>
           <p className="text-xl mb-2">Client Phone Number: <span className="font-semibold">{schedule.phoneNumber}</span></p>
           <p className="text-xl">Client Email: <span className="font-semibold">{schedule.email}</span></p>
+
+          {/* Client concerns message */}
+          <p className="text-xl mt-4">Client Concerns:</p>
+          <textarea name="" id="" cols="50" rows="10" readOnly value={schedule.message}></textarea>
         </div>
 
         <div className="flex justify-center gap-4 mb-4">

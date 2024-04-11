@@ -18,6 +18,18 @@ const services = [
     "Digital X-rays",
     "Oral Surgery",
   ];
+
+  const timeSlots = [
+    "10:00 AM - 11:00 AM",
+    "11:00 AM - 12:00 PM",
+    "12:00 PM - 1:00 PM",
+    "1:00 PM - 2:00 PM",
+    "2:00 PM - 3:00 PM",
+    "3:00 PM - 4:00 PM",
+    "4:00 PM - 5:00 PM",
+    "5:00 PM - 6:00 PM",
+    "6:00 PM - 7:00 PM",
+  ];
   
   const initialScheduleState = {
     dateOfService: "",
@@ -26,6 +38,7 @@ const services = [
     name: "",
     phoneNumber: "",
     serviceType: "",
+    timeSlot: "",
   };
   
 
@@ -143,6 +156,17 @@ const BookingPage = () => {
                                             className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                                             required
                                             />
+                                        </div>
+                                        <div className="md:col-span-5">
+                                            <label>Time Slot</label>
+                                            <select name="timeSlot" value={booking.timeSlot} onChange={handleChange} className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required>
+                                                <option value="">Select a time slot</option>
+                                                {timeSlots.map((timeSlot, index) => (
+                                                    <option key={index} value={timeSlot}>
+                                                    {timeSlot}
+                                                    </option>
+                                                ))}
+                                            </select>
                                         </div>
                                         <div className="md:col-span-5">
                                             <label>Service Type</label>

@@ -46,6 +46,24 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  timeSlot: {
+    type: String,
+    required: [true, 'Time slot is required'],
+    enum: {
+      values: [
+        "10:00 AM - 11:00 AM",
+        "11:00 AM - 12:00 PM",
+        "12:00 PM - 1:00 PM",
+        "1:00 PM - 2:00 PM",
+        "2:00 PM - 3:00 PM",
+        "3:00 PM - 4:00 PM",
+        "4:00 PM - 5:00 PM",
+        "5:00 PM - 6:00 PM",
+        "6:00 PM - 7:00 PM",
+      ],
+      message: '{VALUE} is not a supported time slot',
+    },
+  },
 }, {
   timestamps: true, // Automatically creates createdAt and updatedAt fields
 });
@@ -53,7 +71,7 @@ const bookingSchema = new mongoose.Schema({
 // If you still want to prevent duplicate bookings for the same service on the same day, you might consider:
 // Note: This will only prevent bookings with the exact same name, phone number, service type, and date.
 // Adjust according to your unique constraints.
-bookingSchema.index({ name: 1, phoneNumber: 1, serviceType: 1, dateOfService: 1 }, { unique: true });
+bookingSchema.index({ name: 1, email: 1, phoneNumber:1,timeSlot: 1 }, { unique: true });
 
 const Booking = mongoose.model('Booking', bookingSchema);
 
