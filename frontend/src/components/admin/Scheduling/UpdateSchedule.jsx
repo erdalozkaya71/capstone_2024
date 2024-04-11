@@ -35,19 +35,8 @@ const UpdateSchedule = () => {
     const [schedule, setSchedule] = useState({ ...initialScheduleState});
 
     const formatDateForInput = (dateString) => {
-        if (!dateString) return '';
-        
-        // Construct a Date object using the dateString
-        const date = new Date(dateString + 'T00:00:00'); // Force midnight to avoid timezone shifts
-      
-        // Format the date as 'YYYY-MM-DD'
-        const formattedDate = [
-          date.getFullYear(),
-          ('0' + (date.getMonth() + 1)).slice(-2),
-          ('0' + date.getDate()).slice(-2)
-        ].join('-');
-      
-        return formattedDate;
+      const torontoTime = new Date(dateString + 'T00:00:00-04:00'); // -04:00 for EDT, -05:00 for EST
+      return torontoTime.toISOString();
     };
     
     useEffect(() => {
@@ -55,10 +44,10 @@ const UpdateSchedule = () => {
         const fetchSchedule = async () => {
             try {
                 const fetchedSchedule = await getBooking(id); // Fetch schedule details from the API
-                // console.log(fetchedSchedule);
-                setSchedule({ 
-                    ...fetchedSchedule,
-                    dateOfService: fetchedSchedule.dateOfService.split('T')[0]
+                const localDateOfService = new Date(fetchedSchedule.dateOfService).toLocaleDateString('en-CA');
+                setSchedule({
+                  ...fetchedSchedule,
+                  dateOfService: localDateOfService // Adjusted to 'YYYY-MM-DD' format
                 });
             } catch (error) {
                 console.error("Error fetching schedule:", error);
@@ -76,20 +65,17 @@ const UpdateSchedule = () => {
     // Handle form submit
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Prepare the schedule data for the update
-        const updatedSchedule = {
-            ...schedule,
-            // Convert the dateOfService to a string 'YYYY-MM-DD'
-            dateOfService: schedule.dateOfService
-        };
-
-
         try {
-            if(await updateBooking(id, updatedSchedule)) {
-                alert("Schedule updated successfully");
-                navigate('/admin/schedule');
-            }
+          const torontoDateOfService = formatDateForInput(schedule.dateOfService);
+          const updatedSchedule = {
+            ...schedule,
+            dateOfService: torontoDateOfService
+          };
+          
+          if(await updateBooking(id, updatedSchedule)) {
+            alert("Schedule updated successfully");
+            navigate('/admin/schedule');
+          }
         }catch(error) {
             console.error("Error updating schedule:", error);
             alert("Error updating schedule");
@@ -161,6 +147,7 @@ const UpdateSchedule = () => {
                   className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   required
                 >
+                  <option value="">Select a service</option>
                   {services.map((service, index) => (
                     <option key={index} value={service}>
                       {service}

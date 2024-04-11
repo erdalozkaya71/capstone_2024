@@ -4,6 +4,31 @@ import Footer from "../Shared/Footer";
 import { useNavigate } from 'react-router-dom';
 import { addBooking } from '../../admin/Scheduling/apiBookingCalls'
 
+const services = [
+    "Crown and Bridge",
+    "Teeth Whitening",
+    "Root Canal Therapy",
+    "Hygiene Services",
+    "Direct Filling",
+    "Invisalign",
+    "Porcelain Veneers",
+    "Implants",
+    "Mouth Wear",
+    "On-site Digital Lab",
+    "Digital X-rays",
+    "Oral Surgery",
+  ];
+  
+  const initialScheduleState = {
+    dateOfService: "",
+    email: "",
+    message: "",
+    name: "",
+    phoneNumber: "",
+    serviceType: "",
+  };
+  
+
 const BookingPage = () => {
     const navigate = useNavigate();
     const [booking, setBooking] = useState({}); // Initialize booking state
@@ -13,10 +38,15 @@ const BookingPage = () => {
         const { name, value } = e.target;
         setBooking(prev => ({ ...prev, [name]: value }));
     };
-    // Handle form submit
+    
+    const formatDateForInput = (dateString) => {
+        const torontoTime = new Date(dateString + 'T00:00:00-04:00'); // -04:00 for EDT, -05:00 for EST
+        return torontoTime.toISOString();
+      };
+    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Submitted Booking:', booking);
 
         const requiredFields = ['name', 'email', 'phoneNumber', 'dateOfService', 'serviceType'];
         const missingFields = requiredFields.filter(field => !booking[field]);
@@ -28,32 +58,22 @@ const BookingPage = () => {
         }
 
         try {
-            await addBooking(booking); // Call addBooking function with booking data
+        //conver time to local
+        booking.dateOfService = formatDateForInput(booking.dateOfService);
+        const response = await addBooking(booking); // Call addBooking function with booking data
+        
+        if (response.ok) {
             alert("Booking added successfully");
-            navigate('/user/services');
-        } catch (error) {
-            console.error("Error adding booking:", error);
+            navigate("/user/services"); // Redirect to schedule list or another appropriate route
+        }else{
             alert("Error adding booking");
         }
+
+        } catch (error) {
+        console.error("Error adding booking:", error);
+        alert("Error adding booking");
+        }
     };
-
-
-
-    const services = [
-        "Crown and Bridge",
-        "Teeth Whitening",
-        "Root Canal Therapy",
-        "Hygiene Services",
-        "Direct Filling",
-        "Invisalign",
-        "Porcelain Veneers",
-        "Implants",
-        "Mouth Wear",
-        "On-site Digital Lab",
-        "Digital X-rays",
-        "Oral Surgery"
-    ];
-
 
     return (
         <div classNameName="pt-16">
@@ -79,76 +99,84 @@ const BookingPage = () => {
                                     </ul>
                                 </div>
                                 <form onSubmit={handleSubmit}>
-                                    <div className="lg:col-span-2">
                                     <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                                            <div className="md:col-span-5">
-                                                <label>Full Name</label>
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    placeholder="Full name"
-                                                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                                    onChange={handleChange}
-                                                />
-                                            </div>
-                                            <div className="md:col-span-5">
-                                                <label>Email Address</label>
-                                                <input
-                                                    type="text"
-                                                    name="email"
-                                                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                                    placeholder="email@domain.com"
-                                                    onChange={handleChange}/>
-                                            </div>
-                                            <div className="md:col-span-5">
-                                                <label>Phone Number</label>
-                                                <input
-                                                    type="tel"
-                                                    name="phoneNumber"
-                                                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                                    placeholder="647-555-5555"
-                                                    onChange={handleChange}/>
-                                            </div>
                                         <div className="md:col-span-5">
-                                            <label>Date</label>
+                                            <label>Full Name</label>
                                             <input
-                                                type="date"
-                                                min={new Date().toISOString().split('T')[0]}  // Set min date to today
-                                                name="dateOfService"
-                                                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                                onChange={handleChange}
+                                            type="text"
+                                            name="name"
+                                            value={booking.name}
+                                            onChange={handleChange}
+                                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                            required // Make sure to validate required fields
                                             />
                                         </div>
                                         <div className="md:col-span-5">
-                                            <label>Service</label>
+                                            <label>Email Address</label>
+                                            <input
+                                            type="email" // Use type="email" for proper validation
+                                            name="email"
+                                            value={booking.email}
+                                            onChange={handleChange}
+                                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                            required
+                                            />
+                                        </div>
+                                        <div className="md:col-span-5">
+                                            <label>Phone Number</label>
+                                            <input
+                                            type="tel"
+                                            name="phoneNumber"
+                                            value={booking.phoneNumber}
+                                            onChange={handleChange}
+                                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                            required
+                                            />
+                                        </div>
+                                        <div className="md:col-span-5">
+                                            <label>Date of Service</label>
+                                            <input
+                                            type="date"
+                                            name="dateOfService"
+                                            value={booking.dateOfService || ""}
+                                            onChange={handleChange}
+                                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                            required
+                                            />
+                                        </div>
+                                        <div className="md:col-span-5">
+                                            <label>Service Type</label>
                                             <select
-                                                name="serviceType"
-                                                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                                onChange={handleChange}
-                                                >
-                                                    {services.map((service, index) => (
-                                                        <option key={index} value={service}>
-                                                            {service}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            </div>
-                                            <div className="md:col-span-5">
-                                                <label>Message</label>
-                                                <textarea
-                                                    name="message"
-                                                    placeholder="Include a message..."
-                                                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                                    onChange={handleChange}
-                                                />
-                                            </div>
-                                            <div className="md:col-span-5">
-                                                <button
-                                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                                    type="submit">
-                                                    Request Appointment
-                                                </button>
-                                            </div>
+                                            name="serviceType"
+                                            value={booking.serviceType}
+                                            onChange={handleChange}
+                                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                            required
+                                            >
+                                            <option value="">Select a service</option>
+                                            {services.map((service, index) => (
+                                                <option key={index} value={service}>
+                                                {service}
+                                                </option>
+                                            ))}
+                                            </select>
+                                        </div>
+                                        <div className="md:col-span-5">
+                                            <label>Message</label>
+                                            <textarea
+                                            name="message"
+                                            value={booking.message}
+                                            onChange={handleChange}
+                                            className="h-32 border mt-1 rounded px-4 w-full bg-gray-50" // Increased height for the textarea
+                                            />
+                                        </div>
+                                        <div className="md:col-span-5 flex justify-center">
+                                            <button
+                                            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mx-2"
+                                            type="submit"
+                                            >
+                                            Request Appointment
+                                            </button>
                                         </div>
                                     </div>
                                 </form>

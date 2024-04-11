@@ -3,6 +3,7 @@ import NavBar from "../Shared/Navbar";
 import { Calendar } from "./Calendar";
 import { Schedule } from "./Schedule";
 import { getAllBooking } from "./apiBookingCalls";
+import { Link } from "react-router-dom";
 
 const Scheduling = () => {
 
@@ -48,6 +49,13 @@ const Scheduling = () => {
     return (
         <div className="min-h-screen bg-gray-100 ">
             <NavBar />
+            <div className="bg-gray-100">
+                <div className="container mx-auto mt-8 w-full flex justify-start items-center ">
+                    <Link to="/admin/schedule/new" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Add New Schedule
+                    </Link>
+                </div>
+            </div>
             <div className="flex items-center min-h-[calc(100vh-175px)] justify-center">
                 <div className="container mx-auto px-4 py-0">
                     <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-3">

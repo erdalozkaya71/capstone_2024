@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams , Link, useNavigate} from 'react-router-dom';
-import { getBooking } from "./apiBookingCalls"
+import { getBooking , deleteBooking} from "./apiBookingCalls"
 
 const initialScheduleState = {
   _id: "",
@@ -33,9 +33,10 @@ const ScheduleDetails = () => {
     fetchSchedule();
   }, []);
 
-  const handleDelete = () => {
-    // Handle delete functionality here
-    console.log("Delete schedule:", schedule);
+  const handleDelete = async () => {
+    await deleteBooking(id);
+    alert("Schedule deleted successfully");
+    navigate("/admin/schedule");
   }
 
   const goBack = () => {
@@ -48,7 +49,7 @@ const ScheduleDetails = () => {
       <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6">
         <h1 className="text-3xl font-bold text-center mb-4">Schedule Details</h1>
         <div className="mb-6 p-4 bg-blue-100 rounded">
-          <p className="text-xl mb-2">Service: <span className="font-semibold">{schedule.serviceType}</span></p>
+          <p className="text-xl mb-2">Service Type: <span className="font-semibold">{schedule.serviceType}</span></p>
           <p className="text-xl mb-2">Time: <span className="font-semibold">{new Date(schedule.dateOfService).toLocaleTimeString()}</span></p>
           <p className="text-xl mb-2">Date: <span className="font-semibold">{new Date(schedule.dateOfService).toDateString()}</span></p>
           <p className="text-xl mb-2">Client Phone Number: <span className="font-semibold">{schedule.phoneNumber}</span></p>

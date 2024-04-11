@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 const ScheduleItem = ({bookingID, time, service, client }) => {
 
   const viewLink = `/admin/schedule/${bookingID}`;
-  const formattedTime = new Date(time).toLocaleTimeString();
 
   return (
     <div className="border-b pb-4 border-gray-400 border-dashed mt-5">
@@ -14,9 +13,6 @@ const ScheduleItem = ({bookingID, time, service, client }) => {
         to={viewLink}
         className="flex flex-col justify-between items-center mt-5"
       >
-        <p className="text-xs font-light leading-3 text-gray-500 dark:text-gray-300">
-          {formattedTime}
-        </p>
         <p
           tabIndex="0"
           className="focus:outline-none text-lg font-medium leading-5 text-gray-800 dark:text-gray-100 mt-2"

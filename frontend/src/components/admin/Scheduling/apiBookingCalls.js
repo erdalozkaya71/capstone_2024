@@ -10,12 +10,13 @@ const addBooking = async (bookingData) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${getUserToken()}`, // Get the most current token
             },
             body: JSON.stringify(bookingData),
         });
 
         if (response.ok) {
-            return "Booking created successfully";
+            return response;
         } else {
             const errorMessage = await response.text();
             throw new Error(`Failed to add booking: ${errorMessage}`);
