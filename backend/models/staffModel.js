@@ -50,7 +50,10 @@ const staffSchema = new mongoose.Schema({
     gender: { type: String, required: false },
     workschedule: { type: String, enum: ["Part-time", "Full-time"] },
     hobbies: { type: String },
-    photo: { type: String },
+    photo: {
+      data: Buffer, // Store binary data
+      type: String // Store MIME type of the image
+    }
   },
 });
 

@@ -24,7 +24,10 @@ const inventorySchema = new mongoose.Schema({
   price: { type: Number },
   availability: { type: Boolean },
   purchaseDate: { type: Date, required: false },
-  image: { type: String },
+  image: {
+    data: Buffer, // Store binary data
+    type: String // Store MIME type of the image
+  },
   supplierDetails: supplierDetailsSchema,
 });
 

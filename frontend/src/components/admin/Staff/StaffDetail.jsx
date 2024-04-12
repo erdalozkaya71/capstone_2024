@@ -16,6 +16,7 @@ const initialStaffState = {
     gender: "",
     workschedule: "",
     hobbies: "",
+    photo: ""
   },
 };
 
@@ -57,7 +58,7 @@ const StaffDetail = () => {
           <div className="flex-none lg:w-1/4">
             <img
               className="rounded-full border-4 border-blue-500 h-32 w-32 lg:h-48 lg:w-48 mx-auto"
-              src="https://placehold.co/150x150"
+              src={staff.personalDetails.photo}
               alt="Profile"
             />
           </div>

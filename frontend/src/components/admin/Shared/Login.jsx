@@ -88,14 +88,6 @@ const handleLogin = async (e) => {
               >
                 Password
               </label>
-              <div className="text-sm">
-                <Link
-                  to="/admin/forgot-password"
-                  className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Forgot password?
-                </Link>
-              </div>
             </div>
             <div className="mt-2">
               <input
@@ -109,30 +101,22 @@ const handleLogin = async (e) => {
               />
             </div>
           </div>
-          <div className="flex items-center justify-between">
-            <div>
-              <Link
-                to="/admin/signup"
-                className="font-semibold text-indigo-600 hover:text-indigo-500"
-              >
-                Sign Up
-              </Link>
-            </div>
-            <div>
+          <div className="flex items-center justify-center">
+            <div className="">
               <button
-                type="submit"
-                className="flex justify-center items-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  type="submit"
+                  className="flex justify-center items-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in
               </button>
             </div>
           </div>
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-              {authError && (
+            {authError && (
                 <div className="text-center text-sm font-medium text-red-600">
                   Incorrect username or password.
                 </div>
-              )}
+            )}
           </div>
         </form>
       </div>
