@@ -46,6 +46,13 @@ const BookingPage = () => {
     const navigate = useNavigate();
     const [booking, setBooking] = useState({}); // Initialize booking state
 
+    const handleScrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
+
     // Update state on input change
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -77,7 +84,9 @@ const BookingPage = () => {
         
         if (response.ok) {
             alert("Booking added successfully");
-            navigate("/user/services"); // Redirect to schedule list or another appropriate route
+            handleScrollToTop(
+                navigate("/user/services") // Redirect to schedule list or another appropriate route
+            )
         }else{
             alert("Error adding booking");
         }
